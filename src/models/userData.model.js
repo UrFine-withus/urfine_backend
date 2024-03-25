@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const userDetailsSchema = new mongoose.Schema({
+    _userID:{
+        type:String,
+        required:true,
+        unique:true
+    },
     name: {
         type: String,
         required: true
@@ -10,16 +15,12 @@ const userDetailsSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    password: {
-        type: String,
-        required: true
-    },
     createdAt: {
         type: Date,
         default: Date.now
     }
 });
 
-const UserDetails = mongoose.model('UserDetails', userDetailsSchema);
+const UserDetails = mongoose.model('userdata', userDetailsSchema);
 
 module.exports = UserDetails;

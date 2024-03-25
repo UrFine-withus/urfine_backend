@@ -1,22 +1,30 @@
 // Import any required services or models here
-const UserService = require('../services/userService');
-
+// const {userData} = require('../models');
+const { getUser,createUser } = require("../services/userData.service");
 // Define your controller methods
-exports.getUser = async (req, res) => {
+const getUserData = async (req, res) => {
   try {
-    const User = await UserService.getUser();
-    res.json(User);
+    const user = await getUser();
+    console.log(user);
+    res.send(user);
   } catch (error) {
+    console.error('Error fetching user:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
-exports.createUser = async (req, res) => {
+const createUserData = async (req, res) => {
   try {
-    const { name } = req.body;
-    const newUser = await UserService.createUser(name);
-    res.json(newUser);
+    console.log(req.body);
+    const newUser = await createUser(req.body)
+    res.send(newUser);
   } catch (error) {
+    console.error('Error creating user:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
+};
+
+module.exports = {
+  getUserData,
+  createUserData
 };
