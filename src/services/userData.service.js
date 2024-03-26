@@ -22,7 +22,23 @@ const createUser = async (req) => {
   }
 };
 
+const checkUser = async (req) => {
+  try {
+    console.log('Check user function is working')
+    const User= await UserModel.findOne(req);
+    if (User==null){
+      return "User not found";
+    }
+    return User;
+  }
+  catch (error) {
+    console.error('Error fetching users:', error);
+    throw error;
+  }
+}
+
 module.exports = {
   getUser,
-  createUser
+  createUser,
+  checkUser
 };
