@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {getUserData ,createUserData,checkUserData} = require('../controllers/userController');
+const {getUserData ,createUserData,checkUserData} = require('../controllers/userData.controller');
 
 // Define your routes
 router.get('/getuser',getUserData);
