@@ -2,17 +2,17 @@
 const {UserInfoModel} = require('../models');
 
 // Define your service methods
-const getUserInfo = async () => {
+const addUserInfo = async (req) => {
   try {
-    console.log('Get user function is working')
-    return await UserInfoModel.find();
+    const userInfo = new  UserInfoModel({ ...req});
+    return await userInfo.save();
   } catch (error) {
-    console.error('Error fetching users:', error);
+    console.error('Error creating user:', error);
     throw error;
   }
 };
 
 module.exports = {
-    getUserInfo,
+    addUserInfo,
   };
   

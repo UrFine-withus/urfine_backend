@@ -35,23 +35,23 @@ const userInfoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    sufferedDiseases:[
-        chickenPox = {
+    sufferedDiseases:{
+        chickenPox:{
             type: Boolean,
             required: true
         },
-        Measeles={
+        measeles:{
             type: Boolean,
             required: true
         },
-        Hepatitis={
+        hepatitis:{
             type: Boolean,
             required: true
         },
-        Allergies={
+        allergies:{
             type: String,
         },
-    ],
+    },
     createdAt: {
         type: Date,
         default: Date.now

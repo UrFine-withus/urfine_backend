@@ -14,7 +14,7 @@ app.use(express.json());
 // Connect to MongoDB
 connectToDb();
 // Define your routes here
-const Routes = require('./routes/userData.router');
+const Routes = require('./routes/userInfo.router');
 app.use('/', Routes);
 
 // Start the server

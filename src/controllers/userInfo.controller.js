@@ -1,12 +1,13 @@
 // Import any required services or models here
 
-const { getUserInfo} = require("../services/userInfo.service");
+const { addUserInfo} = require("../services/userInfo.service");
 
 // Define your controller methods
 
-const getUserInfoData = async (req, res) => {
+const addUserInfoData = async (req, res) => {
   try {
-    const user = await getUserInfo();
+    console.log("controller is working");
+    const user = await addUserInfo(req.body);
     console.log(user);
     res.send(user);
   } catch (error) {
@@ -18,6 +19,6 @@ const getUserInfoData = async (req, res) => {
 
 
 module.exports = {
-    getUserInfoData,
+    addUserInfoData
   };
   
