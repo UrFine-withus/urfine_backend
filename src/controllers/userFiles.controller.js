@@ -6,12 +6,20 @@ const { uploadFile} = require("../services/userFiles.service");
 
 const uploadFileData = async (req, res) => {
   try {
-    const user = await uploadFile();
-    console.log(user);
-    res.send(user);
+    const file = req.file;
+    const userId=req.params._userID
+    console.log("file",file)
+    console.log("userId",userId)
+    const uploadedImage = await uploadFile(userId,file);
+    res.send({
+      message: 'File uploaded successfully!',
+      id: uploadedImage.id,
+      name: uploadedImage.filename,
+      contentType: uploadedImage.contentType,
+    });
   } catch (error) {
-    console.error('Error fetching user:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error('Error uploading image:', error);
+    res.status(500).send({ error: 'Internal Server Error' });
   }
 };
 
