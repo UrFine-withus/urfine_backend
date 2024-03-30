@@ -13,6 +13,7 @@ const addUserInfo = async (req) => {
 };
 const getUserInfo = async (_userID) => {
   try {
+    console.log("service is working",_userID);
     return await UserInfoModel.find({_userID});
   } catch (error) {
     console.error('Error fetching user:', error);

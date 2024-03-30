@@ -17,10 +17,10 @@ const addUserInfoData = async (req, res) => {
 };
 const getUserInfoData = async (req, res) => {
   try {
-    const userID=req.params._userID;
-    console.log("controller is working");
+    const userID=req.query._userID;
+    console.log("controller is working",userID);
     const user = await getUserInfo(userID);
-    console.log(user);
+    // console.log(user);
     res.send(user);
   } catch (error) {
     console.error('Error fetching user:', error);
