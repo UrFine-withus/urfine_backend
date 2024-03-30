@@ -1,6 +1,6 @@
 // Import any required services or models here
 
-const { addUserInfo} = require("../services/userInfo.service");
+const { addUserInfo,getUserInfo} = require("../services/userInfo.service");
 
 // Define your controller methods
 
@@ -15,10 +15,22 @@ const addUserInfoData = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
+const getUserInfoData = async (req, res) => {
+  try {
+    const userID=req.params._userID;
+    console.log("controller is working");
+    const user = await getUserInfo(userID);
+    console.log(user);
+    res.send(user);
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
 
 
 module.exports = {
-    addUserInfoData
+    addUserInfoData,
+    getUserInfoData
   };
   

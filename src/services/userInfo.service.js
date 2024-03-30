@@ -11,8 +11,17 @@ const addUserInfo = async (req) => {
     throw error;
   }
 };
+const getUserInfo = async (_userID) => {
+  try {
+    return await UserInfoModel.find({_userID});
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    throw error;
+  }
+};
 
 module.exports = {
     addUserInfo,
+    getUserInfo
   };
   
