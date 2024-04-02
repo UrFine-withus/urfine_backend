@@ -1,31 +1,60 @@
 
-const { getEmergency, createEmergency} = require("../services/emergencyInfo.service");
+const { getEmergency, createEmergency,updateEmergency,deleteEmergency} = require("../services/emergencyInfo.service");
 
 // Define your controller methods
 
 const getAllEmergencyData = async (req, res) => {
   try {
-    const user = await getEmergency();
-    console.log(user);
-    res.send(user);
+    const emergency = await getEmergency();
+    console.log(emergency);
+    res.send(emergency);
   } catch (error) {
-    console.error('Error fetching user:', error);
+    console.error('Error fetching emergency:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 const createEmergencyData = async (req, res) => {
   try {
-    const user = await createEmergency(req.body);
-    console.log(user);
-    res.send(user);
+    console.log(req.body);
+    const emergency = await createEmergency(req.body);
+    console.log(emergency);
+    res.send(emergency);
   } catch (error) {
-    console.error('Error fetching user:', error);
+    console.error('Error fetching emergency:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 
 }
 
+const updateEmergencyData = async (req, res) => {
+  try {
+    const emergency = await updateEmergency(req.body);
+    console.log(emergency);
+    res.send(
+      emergency);
+  } catch (error) {
+    console.error('Error fetching emergency:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+
+}
+
+const deleteEmergencyData = async (req, res) => {
+  try {
+    const emergency = await deleteEmergency(req.query.id);
+    console.log(emergency);
+    res.send(
+      emergency);
+  } catch (error) {
+    console.error('Error fetching emergency:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+
+
+}
+
 module.exports = {
   getAllEmergencyData,
-  createEmergencyData
+  createEmergencyData,
+  updateEmergencyData
   };

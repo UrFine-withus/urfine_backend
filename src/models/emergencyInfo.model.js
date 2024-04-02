@@ -18,6 +18,9 @@ const EmergencyInfoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    mobile:{
+        type: String,
+    },
     location:{
         type: String,
         required: true
