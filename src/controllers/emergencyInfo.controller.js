@@ -41,10 +41,10 @@ const updateEmergencyData = async (req, res) => {
 
 const deleteEmergencyData = async (req, res) => {
   try {
-    const emergency = await deleteEmergency(req.query.id);
+    console.log(req.query._id);
+    const emergency = await deleteEmergency(req.query._id);
     console.log(emergency);
-    res.send(
-      emergency);
+    res.send(emergency);
   } catch (error) {
     console.error('Error fetching emergency:', error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -56,5 +56,6 @@ const deleteEmergencyData = async (req, res) => {
 module.exports = {
   getAllEmergencyData,
   createEmergencyData,
-  updateEmergencyData
+  updateEmergencyData,
+  deleteEmergencyData
   };

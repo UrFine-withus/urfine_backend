@@ -15,7 +15,7 @@ const createEmergency = async (req) =>  {
 
         if (isEmptyReq) {
             return {
-                message: ""
+                message: "Emergency contact details cannot be empty"
             };
         }
       const existingEmergency = await EmergencyInfoModel.findOne({...req});
@@ -36,15 +36,36 @@ const createEmergency = async (req) =>  {
 
  const updateEmergency = async (req) => {
     try {
-        return await EmergencyInfoModel.findByIdAndUpdate(req, req, { upsert: true, new: true });
+        const data= await EmergencyInfoModel.findByIdAndUpdate(req, req, { upsert: true, new: true });
+        if(data){
+            return {
+                message: "Emergency contact updated successfully"
+            };
+        }
     } catch (error) {
       console.error('Error updating contact details:', error);
       throw error;
     }
   };
 
+const deleteEmergency = async (req) => {
+    try {
+         const data = await EmergencyInfoModel.findByIdAndDelete(req);
+         if(data){
+              return {
+                  message: "Emergency contact deleted successfully"
+              };
+         }
+    } catch (error) {
+        console.error('Error deleting contact details:', error);
+        throw error;
+    }
+}  
+
+
 module.exports = {
     getEmergency,
     createEmergency,
-    updateEmergency
+    updateEmergency,
+    deleteEmergency
 }
