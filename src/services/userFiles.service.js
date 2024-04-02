@@ -4,15 +4,19 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 
 // Define your service methods
-const uploadFile = async (userId,file) => {
+const uploadFile = async (userId, file) => {
   try {
     const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'prescriptions' });
 
     const uploadStream = gfs.openUploadStream(file.originalname);
-    const fileReadStream = fs.createReadStream(file.path); // Create readable stream
+    
+    // Ensure the file object contains the stream
+    if (!file.stream) {
+      throw new Error('File stream is undefined');
+    }
 
-    // Pipe the file read stream to the upload stream
-    fileReadStream.pipe(uploadStream);
+    // Pipe the file object stream to the upload stream
+    file.stream.pipe(uploadStream);
 
     return new Promise((resolve, reject) => {
       uploadStream.on('error', (error) => {
@@ -20,10 +24,11 @@ const uploadFile = async (userId,file) => {
       });
       uploadStream.on('close', () => {
         resolve({
-            _userID:userId,
+          _userID: userId,
           id: uploadStream.id,
           filename: uploadStream.filename,
           contentType: file.mimetype,
+          createdAt: uploadStream.uploadDate
         });
       });
     });
@@ -33,21 +38,21 @@ const uploadFile = async (userId,file) => {
   }
 };
 
-const getFile = async (fileId) => {
-  try {
-    const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'prescriptions' });
+// const getFile = async (fileId) => {
+//   try {
+//     const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'prescriptions' });
 
-    const downloadStream = gfs.openDownloadStream(new mongoose.Types.ObjectId(fileId));
-    return downloadStream;
-  } catch (error) {
-    console.error('Error fetching file:', error);
-    throw error;
-  }
-};
+//     const downloadStream = gfs.openDownloadStream(new mongoose.Types.ObjectId(fileId));
+//     return downloadStream;
+//   } catch (error) {
+//     console.error('Error fetching file:', error);
+//     throw error;
+//   }
+// };
 
 module.exports = {
   uploadFile,
-  getFile
+  // getFile
 };
 
 

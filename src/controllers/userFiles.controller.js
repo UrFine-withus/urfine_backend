@@ -7,7 +7,7 @@ const { uploadFile} = require("../services/userFiles.service");
 const uploadFileData = async (req, res) => {
   try {
     const file = req.file;
-    const userId=req.params._userID
+    const userId=req.query._userID
     console.log("file",file)
     console.log("userId",userId)
     const uploadedImage = await uploadFile(userId,file);
@@ -16,6 +16,7 @@ const uploadFileData = async (req, res) => {
       id: uploadedImage.id,
       name: uploadedImage.filename,
       contentType: uploadedImage.contentType,
+      createdAt: uploadedImage.createdAt
     });
   } catch (error) {
     console.error('Error uploading image:', error);
