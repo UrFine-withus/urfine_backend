@@ -1,6 +1,6 @@
 const {EmergencyInfoModel} = require('../models');
 
-const getEmergency = async () => {
+const getAllEmergency = async () => {
     try {
         return await EmergencyInfoModel.find();
     } catch (error) {
@@ -8,6 +8,14 @@ const getEmergency = async () => {
         throw new Error('Error fetching user');
     }
 }
+ const getEmergencyProfile = async (profile) => {
+    try {
+        return await EmergencyInfoModel.find({profile});
+    } catch (error) {
+        console.error('Error fetching emergency contacts:', error);
+        throw new Error('Error fetching user');
+    }
+ }
 
 const createEmergency = async (req) =>  {
   try {
@@ -64,8 +72,9 @@ const deleteEmergency = async (req) => {
 
 
 module.exports = {
-    getEmergency,
+    getAllEmergency,
     createEmergency,
     updateEmergency,
-    deleteEmergency
+    deleteEmergency,
+    getEmergencyProfile
 }
