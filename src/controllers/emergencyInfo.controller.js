@@ -1,5 +1,5 @@
 
-const { getEmergency } = require("../services/emergencyInfo.service");
+const { getEmergency, createEmergency} = require("../services/emergencyInfo.service");
 
 // Define your controller methods
 
