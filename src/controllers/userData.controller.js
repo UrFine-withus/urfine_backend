@@ -28,8 +28,8 @@ const createUserData = async (req, res) => {
 
 const checkUserData = async (req, res) => {
   try {
-    const _userID = req.query._userID;
-    console.log(req.query._userID);
+    const _userID = req.query.userId;
+    console.log(_userID);
     const user = await checkUser({_userID});
     console.log(user);
     res.send(user);
