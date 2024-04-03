@@ -68,5 +68,5 @@ const historyLogSchema = new mongoose.Schema({
     }
 });
 
-const UserData = mongoose.model('userdata', historyLogSchema);
-module.exports = UserData;
+const HistoryLog = mongoose.model('historylog', historyLogSchema);
+module.exports = HistoryLog;

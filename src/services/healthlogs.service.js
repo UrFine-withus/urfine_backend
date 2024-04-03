@@ -1,1 +1,1 @@
-const {} = require('../models');
+const {HealthLogModel} = require('../models');
