@@ -33,3 +33,17 @@ const createHealthLog = async (req) =>  {
         throw error;
     }
 };
+
+const updateHealthLog = async (req) => {
+    try {
+        const data= await HealthLogModel.findByIdAndUpdate(req, req, { upsert: true, new: true });
+        if(data){
+            return {
+                message: "Health log updated successfully"
+            };
+        }
+    } catch (error) {
+        console.error('Error updating health log:', error);
+        throw error;
+    }
+};
