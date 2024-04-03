@@ -47,3 +47,17 @@ const updateHealthLog = async (req) => {
         throw error;
     }
 };
+
+const deleteHealthLog = async (req) => {
+    try {
+        const data= await HealthLogModel.findByIdAndDelete(req);
+        if(data){
+            return {
+                message: "Health log deleted successfully"
+            };
+        }
+    } catch (error) {
+        console.error('Error deleting health log:', error);
+        throw error;
+    }
+};
