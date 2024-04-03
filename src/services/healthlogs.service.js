@@ -61,3 +61,10 @@ const deleteHealthLog = async (req) => {
         throw error;
     }
 };
+
+module.exports = {
+    getAllHealthLogs,
+    createHealthLog,
+    updateHealthLog,
+    deleteHealthLog
+}
