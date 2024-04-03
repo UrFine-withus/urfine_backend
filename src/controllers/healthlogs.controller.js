@@ -1,4 +1,14 @@
 const {getAllHealthLogs,createHealthLog,updateHealthLog,deleteHealthLog}=require("../services/healthlogs.service");
 
+const getAllHealthLogsData = async (req, res) => {
+    try {
+        const healthlogs = await getAllHealthLogs();
+        console.log(healthlogs);
+        res.send(healthlogs);
+    } catch (error) {
+        console.error('Error fetching healthlogs:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
 
 
