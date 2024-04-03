@@ -39,7 +39,7 @@ const updateHealthLogData = async (req, res) => {
 
 const deleteHealthLogData = async (req, res) => {
     try {
-        const healthlogs = await deleteHealthLog(req.body);
+        const healthlogs = await deleteHealthLog(req.query.userId);
         console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {
