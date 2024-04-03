@@ -24,3 +24,17 @@ const createHealthLogData = async (req, res) => {
     }
 
 }   
+
+
+const updateHealthLogData = async (req, res) => {
+    try {
+        const healthlogs = await updateHealthLog(req.body);
+        console.log(healthlogs);
+        res.send(
+            healthlogs);
+    } catch (error) {
+        console.error('Error fetching healthlogs:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+}
