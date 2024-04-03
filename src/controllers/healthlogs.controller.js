@@ -11,7 +11,6 @@ const getAllHealthLogsData = async (req, res) => {
     }
 }
 
-
 const createHealthLogData = async (req, res) => {
     try {
         console.log(req.body);
@@ -47,4 +46,11 @@ const deleteHealthLogData = async (req, res) => {
         console.error('Error fetching healthlogs:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
+}
+
+module.exports = {
+    getAllHealthLogsData,
+    createHealthLogData,
+    updateHealthLogData,
+    deleteHealthLogData
 }
