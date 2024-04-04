@@ -77,12 +77,10 @@ const deleteHealthLog = async (req) => {
     }
 };
 
-getuserHealthLogs = async (req) => {
+const getuserHealthLogs = async (req) => {
+    const _userID = req;
     try {
-       return await HealthLogModel.find(req);
-       
-         
-        
+       return await HealthLogModel.find({ _userID });
     } catch (error) {
         console.error('Error fetching health log:', error);
         throw error;

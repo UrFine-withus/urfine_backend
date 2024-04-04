@@ -1,4 +1,4 @@
-const {getAllHealthLogs,createHealthLog,updateHealthLog,deleteHealthLog,getUserHealthLogs}=require("../services/healthlogs.service");
+const {getAllHealthLogs,createHealthLog,updateHealthLog,deleteHealthLog,getuserHealthLogs}=require("../services/healthlogs.service");
 
 const getAllHealthLogsData = async (req, res) => {
     try {
@@ -53,7 +53,7 @@ const deleteHealthLogData = async (req, res) => {
 const getUserHealthLogsData = async (req, res) => {
     try {
         console.log(req.query.userId);
-        const healthlogs = await getUserHealthLogs(req.query.userId);
+        const healthlogs = await getuserHealthLogs(req.query.userId);
         console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {
