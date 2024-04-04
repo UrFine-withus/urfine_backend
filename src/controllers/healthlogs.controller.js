@@ -63,10 +63,24 @@ const getUserHealthLogsData = async (req, res) => {
 
 }
 
+const getHealthLogdateData = async (req, res) => {
+    try {
+        console.log(req.query.userId);
+        const healthlogs = await getHealthLogdate(req.query.userId);
+        console.log(healthlogs);
+        res.send(healthlogs);
+    } catch (error) {
+        console.error('Error fetching healthlogs:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+
+}
 module.exports = {
     getAllHealthLogsData,
     createHealthLogData,
     updateHealthLogData,
     deleteHealthLogData,
-    getUserHealthLogsData
+    getUserHealthLogsData,
+    getHealthLogdateData
 }

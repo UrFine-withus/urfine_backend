@@ -4,7 +4,7 @@ const{getAllHealthLogsData,createHealthLogData,updateHealthLogData,deleteHealthL
 
 router.get('/healthlog', getAllHealthLogsData);
 router.get('/healthlog/user', getUserHealthLogsData);
-router.get('/healthlog/git dates', getHealthLogdateData);
+router.get('/healthlog/dates', getHealthLogdateData);
 router.post('/healthlog', createHealthLogData);
 router.put('/healthlog', updateHealthLogData);
 router.delete('/healthlog', deleteHealthLogData);
