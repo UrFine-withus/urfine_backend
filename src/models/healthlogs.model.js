@@ -3,7 +3,6 @@ const historyLogSchema = new mongoose.Schema({
     _userID:{
         type:String,
         required:true,
-        unique:true
     },
     sugar:{
         current:{

@@ -78,15 +78,29 @@ const deleteHealthLog = async (req) => {
 };
 
 const getuserHealthLogs = async (req) => {
-    const _userID = req;
+    const { _userID, date } = req;
     try {
-       return await HealthLogModel.find({ _userID });
+        // Parse the date string to a JavaScript Date object
+        const startDate = new Date(date);
+        // Set the time to the start of the day
+        startDate.setUTCHours(0, 0, 0, 0);
+        
+        // Get the end date by adding one day and setting the time to the start of the day
+        const endDate = new Date(startDate);
+        endDate.setUTCDate(startDate.getUTCDate() + 1);
+        endDate.setUTCHours(0, 0, 0, 0);
+
+        // Find health logs for the specified user and date range
+        return await HealthLogModel.find({
+            _userID,
+            createdAt: { $gte: startDate, $lt: endDate }
+        });
     } catch (error) {
         console.error('Error fetching health log:', error);
         throw error;
     }
+};
 
-}
 
 const getHealthLogdates = async (req) => {
     const _userID = req;
@@ -105,6 +119,7 @@ const getHealthLogdates = async (req) => {
             },
             {
                 $project: {
+                    _id: 0, // Exclude the default _id field
                     date: {
                         $dateFromParts: {
                             year: "$_id.year",
@@ -114,18 +129,19 @@ const getHealthLogdates = async (req) => {
                     }
                 }
             },
-            { $sort: { date: 1 } } // Optionally sort the dates
+            { $sort: { "date": -1 } } // Optionally sort the dates
         ]);
 
-        // Extract the dates from the aggregation result
-        const dates = uniqueDates.map(dateObj => dateObj.date);
+        // Format the dates to "YYYY-MM-DD" string format
+        const formattedDates = uniqueDates.map(dateObj => dateObj.date.toISOString().slice(0, 10));
 
-        return dates;
+        return formattedDates;
     } catch (error) {
         console.error('Error fetching health log dates:', error);
         throw error;
     }
 };
+
 
 module.exports = {
     getAllHealthLogs,
