@@ -6,3 +6,5 @@ router.get('/healthlog', getAllHealthLogsData);
 router.post('/healthlog', createHealthLogData);
 router.put('/healthlog', updateHealthLogData);
 router.delete('/healthlog', deleteHealthLogData);
+
+module.exports = router;

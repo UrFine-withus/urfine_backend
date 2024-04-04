@@ -9,7 +9,7 @@ const getAllHealthLogs = async () => {
     }
 }
 
-const createHealthLog = async (req) =>  {
+const createHealthLog = async (_userID, req) => {
     try {
         const isEmptyReq = Object.values(req).every(value => value === '');
 
@@ -18,14 +18,28 @@ const createHealthLog = async (req) =>  {
                 message: "Health log details cannot be empty"
             };
         }
-        const existingHealthLog = await HealthLogModel.findOne({...req});
+        
+        // Get the current date
+        const currentDate = new Date();
+        currentDate.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0
+
+        // Define the start and end of the current day
+        const startOfDay = new Date(currentDate);
+        const endOfDay = new Date(currentDate);
+        endOfDay.setHours(23, 59, 59, 999); // Set to end of the day
+        
+        // Check if there is an existing health log for the user on the current day
+        const existingHealthLog = await HealthLogModel.findOne({
+            _userID,
+            createdAt: { $gte: startOfDay, $lte: endOfDay }
+        });
         
         if (existingHealthLog) {
             return {
-                message:"Health log already exists in the database"
+                message: "A health log already exists for this user on the current day"
             };
         } else {
-            const newHealthLog = new HealthLogModel({...req});
+            const newHealthLog = new HealthLogModel({ _userID, ...req });
             return await newHealthLog.save();
         }
     } catch (error) {
@@ -33,6 +47,7 @@ const createHealthLog = async (req) =>  {
         throw error;
     }
 };
+
 
 const updateHealthLog = async (req) => {
     try {

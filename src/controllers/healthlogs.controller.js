@@ -14,7 +14,8 @@ const getAllHealthLogsData = async (req, res) => {
 const createHealthLogData = async (req, res) => {
     try {
         console.log(req.body);
-        const healthlogs = await createHealthLog(req.body);
+        const _userID=req.query.userId
+        const healthlogs = await createHealthLog(_userID,req.body);
         console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {
@@ -39,7 +40,8 @@ const updateHealthLogData = async (req, res) => {
 
 const deleteHealthLogData = async (req, res) => {
     try {
-        const healthlogs = await deleteHealthLog(req.query.userId);
+        console.log(req.query._Id);
+        const healthlogs = await deleteHealthLog(req.query._Id);
         console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {

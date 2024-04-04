@@ -19,7 +19,7 @@ const historyLogSchema = new mongoose.Schema({
             required:true
         },
     },
-    Cholesterol:{
+    cholesterol:{
         current:{
             type:String,
             required:true
@@ -47,7 +47,7 @@ const historyLogSchema = new mongoose.Schema({
             required:true
         },
     },
-    Creatine:{
+    creatine:{
         current:{
             type:String,
             required:true
