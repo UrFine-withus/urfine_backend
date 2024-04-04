@@ -77,9 +77,23 @@ const deleteHealthLog = async (req) => {
     }
 };
 
+getuserHealthLogs = async (req) => {
+    try {
+       return await HealthLogModel.find(req);
+       
+         
+        
+    } catch (error) {
+        console.error('Error fetching health log:', error);
+        throw error;
+    }
+
+}
+
 module.exports = {
     getAllHealthLogs,
     createHealthLog,
     updateHealthLog,
-    deleteHealthLog
+    deleteHealthLog,
+    getuserHealthLogs
 }
