@@ -88,10 +88,51 @@ const getuserHealthLogs = async (req) => {
 
 }
 
+const getHealthLogdates = async (req) => {
+    const _userID = req;
+    try {
+        // Aggregate to get unique dates
+        const uniqueDates = await HealthLogModel.aggregate([
+            { $match: { _userID } }, // Match logs for the specified user
+            {
+                $group: {
+                    _id: {
+                        year: { $year: "$createdAt" },
+                        month: { $month: "$createdAt" },
+                        day: { $dayOfMonth: "$createdAt" }
+                    }
+                }
+            },
+            {
+                $project: {
+                    date: {
+                        $dateFromParts: {
+                            year: "$_id.year",
+                            month: "$_id.month",
+                            day: "$_id.day"
+                        }
+                    }
+                }
+            },
+            { $sort: { date: 1 } } // Optionally sort the dates
+        ]);
+
+        // Extract the dates from the aggregation result
+        const dates = uniqueDates.map(dateObj => dateObj.date);
+
+        return dates;
+    } catch (error) {
+        console.error('Error fetching health log dates:', error);
+        throw error;
+    }
+};
+
 module.exports = {
     getAllHealthLogs,
     createHealthLog,
     updateHealthLog,
     deleteHealthLog,
-    getuserHealthLogs
+    getuserHealthLogs,
+    getHealthLogdates
+
 }

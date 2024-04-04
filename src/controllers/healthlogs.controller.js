@@ -66,7 +66,7 @@ const getUserHealthLogsData = async (req, res) => {
 const getHealthLogdateData = async (req, res) => {
     try {
         console.log(req.query.userId);
-        const healthlogs = await getHealthLogdate(req.query.userId);
+        const healthlogs = await getHealthLogdates(req.query.userId);
         console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {
