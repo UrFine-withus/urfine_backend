@@ -53,7 +53,10 @@ const deleteHealthLogData = async (req, res) => {
 const getUserHealthLogsData = async (req, res) => {
     try {
         console.log(req.query.userId);
-        const healthlogs = await getuserHealthLogs(req.query.userId);
+        console.log(req.query.date);
+        const _userID=req.query.userId;
+        const date = new Date(req.query.date);
+        const healthlogs = await getuserHealthLogs(_userID,date);
         console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {
@@ -66,10 +69,7 @@ const getUserHealthLogsData = async (req, res) => {
 const getHealthLogdateData = async (req, res) => {
     try {
         console.log(req.query.userId);
-        console.log(req.query.date);
-        const _userID=req.query.userId;
-        const date=req.query.Date;
-        const healthlogs = await getHealthLogdates(_userID,date);
+        const healthlogs = await getHealthLogdates(req.query.userId);
         console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {

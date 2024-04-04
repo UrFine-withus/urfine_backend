@@ -77,9 +77,10 @@ const deleteHealthLog = async (req) => {
     }
 };
 
-const getuserHealthLogs = async (req) => {
-    const { _userID, date } = req;
+const getuserHealthLogs = async (_userID,date) => {
+    
     try {
+        
         // Parse the date string to a JavaScript Date object
         const startDate = new Date(date);
         // Set the time to the start of the day
