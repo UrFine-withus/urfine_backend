@@ -21,8 +21,33 @@ const getUserInfo = async (_userID) => {
   }
 };
 
+const updateUserInfo = async (req) => {
+  try {
+    const data= await UserInfoModel.findByIdAndUpdate(req, req, { upsert: true, new: true });
+    if(data){
+        return {
+            message: "User updated successfully"
+          }}
+        }
+        catch (error) {
+          console.error('Error fetching updating the user:', error);
+          res.status(500).json({ error: 'Internal Server Error' });
+        }
+      }; 
+
+
+
+
+
+
+
+
+
+
+
 module.exports = {
     addUserInfo,
-    getUserInfo
+    getUserInfo,
+    updateUserInfo
   };
   
