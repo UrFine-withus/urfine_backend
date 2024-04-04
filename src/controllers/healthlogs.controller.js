@@ -1,4 +1,4 @@
-const {getAllHealthLogs,createHealthLog,updateHealthLog,deleteHealthLog}=require("../services/healthlogs.service");
+const {getAllHealthLogs,createHealthLog,updateHealthLog,deleteHealthLog,getUserHealthLogs}=require("../services/healthlogs.service");
 
 const getAllHealthLogsData = async (req, res) => {
     try {
