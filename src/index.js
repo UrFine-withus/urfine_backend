@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require("morgan");
-const config = require('./config/config');
+const port = process.env.PORT
+console.log(port)
 
 const connectToDb =require('./config/Connection') 
 require('dotenv').config();
@@ -18,6 +19,6 @@ const Routes = require('./routes/userFiles.router');
 app.use('/', Routes);
 
 // Start the server
-app.listen(config.port, () => {
-  console.log(`Server is running on port ${config.port}`);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
