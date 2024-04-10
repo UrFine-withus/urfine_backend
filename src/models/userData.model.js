@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { add } = require('winston');
+
 const userDetailSchema = new mongoose.Schema({
     _userID:{
         type:String,
