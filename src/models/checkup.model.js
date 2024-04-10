@@ -51,6 +51,6 @@ const checkupSchema = new mongoose.Schema({
     }
 });
 
-const Checkup = mongoose.model('checkupinfo',checkupSchema);
+const Checkup = mongoose.model('checkup',checkupSchema);
 
 module.exports = Checkup;
