@@ -20,9 +20,19 @@ const getAllCheckupData = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }
-    
+    const deleteCheckupData = async (req, res) => {
+        try {
+        const checkup = await deleteCheckup();
+        console.log(checkup);
+        res.send(checkup);
+        } catch (error) {
+        console.error('Error fetching checkup:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }    
 
   module.exports = {
     getAllCheckupData,
-    createCheckupData
+    createCheckupData,
+    createCheckupData,
   }
