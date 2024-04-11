@@ -22,7 +22,27 @@ const createCheckup = async (req, res) => {
 
 }
 
+const deleteCheckup = async (req, res) => {
+    try {
+        const checkup = await CheckupModel.findByIdAndUpdate(req, 
+            {deleted:{
+                deletedBy: req.query.deletedBy,
+                deletedAt: Date.now()
+            }}, { upsert: true, new: true });
+        if(checkup){
+            return {
+                message: "Checkup deleted successfully"
+            };
+        }
+    } catch (error) {
+      console.error('Error deleting checkup:', error);
+      throw error;
+    }
+  
+}
+
 module.exports = {
     getAllCheckup,
     createCheckup,
+    deleteCheckup
 }
