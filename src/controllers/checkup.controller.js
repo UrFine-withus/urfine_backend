@@ -1,4 +1,4 @@
-const {}=require('../services/checkup.service');
+const {getAllCheckup,createCheckup,deleteCheckup}=require('../services/checkup.service');
 
 const getAllCheckupData = async (req, res) => {
     try {
@@ -34,6 +34,6 @@ const getAllCheckupData = async (req, res) => {
   module.exports = {
     getAllCheckupData,
     createCheckupData,
-    deleteCheckupData,
+    deleteCheckupData
   }
   
