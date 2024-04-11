@@ -11,6 +11,18 @@ const getAllCheckup = async (req, res) => {
     }
 }
 
+const createCheckup = async (req, res) => {
+    try {
+        const checkup = new CheckupModel({...req});
+        return await checkup.save();
+    } catch (error) {
+        console.error('Error creating checkup:', error);
+        throw error;
+    }
+
+}
+
 module.exports = {
-    getAllCheckup
+    getAllCheckup,
+    createCheckup,
 }

@@ -34,5 +34,6 @@ const getAllCheckupData = async (req, res) => {
   module.exports = {
     getAllCheckupData,
     createCheckupData,
-    createCheckupData,
+    deleteCheckupData,
   }
+  
