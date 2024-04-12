@@ -4,6 +4,7 @@ const { getAllCheckupData,createCheckupData,deleteCheckupData} = require('../con
 
 // Define your routes
 router.get('/checkups',getAllCheckupData);
+router.get('/checkups',getAllCheckupData);
 router.post('/checkups',createCheckupData);
 router.delete('/checkups',deleteCheckupData);
 // Add more routes as needed

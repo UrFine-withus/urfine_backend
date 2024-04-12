@@ -1,4 +1,4 @@
-const {getAllCheckup,createCheckup,deleteCheckup}=require('../services/checkup.service');
+const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup}=require('../services/checkup.service');
 
 const getAllCheckupData = async (req, res) => {
     try {
@@ -30,10 +30,21 @@ const getAllCheckupData = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }    
-
+    const getAcceptedCheckupData = async (req, res) => {
+        try {
+        const checkup = await getAcceptedCheckup();
+        console.log(checkup);
+        res.send(checkup);
+        } catch (error) {
+        console.error('Error fetching checkup:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        }
+    
+    }
   module.exports = {
     getAllCheckupData,
     createCheckupData,
-    deleteCheckupData
+    deleteCheckupData,
+    getAcceptedCheckupData
   }
   
