@@ -1,8 +1,9 @@
+
 const {CheckupModel} = require('../models');
 
 const getAllCheckup = async (req, res) => {
     try {
-        const checkup = await CheckupModel.find();
+        const checkup = await CheckupModel.find({deleted:  {$exists: false }, isAccepted: false});
         return checkup;
     } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -32,13 +33,13 @@ const createCheckup = async (req, res) => {
 
 }
 
-const deleteCheckup = async (req, res) => {
+const deleteCheckup = async (req_id,req_deletedBy) => {
     try {
-        const checkup = await CheckupModel.findByIdAndUpdate(req, 
-            {deleted:{
-                deletedBy: req.query.deletedBy,
-                deletedAt: Date.now()
-            }}, { upsert: true, new: true });
+        const checkup = await CheckupModel.findByIdAndUpdate({_id  :req_id}, 
+        {$set:  {deleted:{
+            deletedBy: req_deletedBy,
+            deletedAt: Date.now()
+        }}});
         if(checkup){
             return {
                 message: "Checkup deleted successfully"
@@ -51,9 +52,26 @@ const deleteCheckup = async (req, res) => {
   
 }
 
+const acceptCheckup = async (req_id) => {
+    try {
+        const checkup = await CheckupModel.findByIdAndUpdate({_id :req_id}, 
+        {$set:  {isAccepted: true}});
+        if(checkup){
+            return {
+                message: "Checkup accepted successfully"
+            };
+        }
+    } catch (error) {
+      console.error('Error accepting checkup:', error);
+      throw error;
+    }
+  
+}
+
 module.exports = {
     getAllCheckup,
     createCheckup,
     deleteCheckup,
-    getAcceptedCheckup
+    getAcceptedCheckup,
+    acceptCheckup
 }

@@ -1,4 +1,5 @@
-const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup}=require('../services/checkup.service');
+const { compile } = require('morgan');
+const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup,acceptCheckup}=require('../services/checkup.service');
 
 const getAllCheckupData = async (req, res) => {
     try {
@@ -12,7 +13,7 @@ const getAllCheckupData = async (req, res) => {
   }
     const createCheckupData = async (req, res) => {
         try {
-        const checkup = await createCheckup();
+        const checkup = await createCheckup(req.body);
         console.log(checkup);
         res.send(checkup);
         } catch (error) {
@@ -22,7 +23,11 @@ const getAllCheckupData = async (req, res) => {
     }
     const deleteCheckupData = async (req, res) => {
         try {
-        const checkup = await deleteCheckup();
+          const req_id = req.query.req_id;
+          console.log(req_id);
+          const req_deletedBy = req.query.deletedBy;
+          console.log(req_deletedBy);
+        const checkup = await deleteCheckup(req_id,req_deletedBy);
         console.log(checkup);
         res.send(checkup);
         } catch (error) {
@@ -41,10 +46,28 @@ const getAllCheckupData = async (req, res) => {
         }
     
     }
+    const acceptCheckupData = async (req, res) => {
+        try {
+        const req_id = req.query.req_id;
+         console.log(req_id);
+        const checkup = await acceptCheckup(req_id);
+        console.log(checkup);
+        res.send(checkup);
+        } catch (error) {
+        console.error('Error fetching checkup:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+
+
+
+
+
   module.exports = {
     getAllCheckupData,
     createCheckupData,
     deleteCheckupData,
-    getAcceptedCheckupData
+    getAcceptedCheckupData,
+    acceptCheckupData
   }
   
