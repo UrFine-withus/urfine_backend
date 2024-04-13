@@ -1,5 +1,5 @@
 const { compile } = require('morgan');
-const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup}=require('../services/checkup.service');
+const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup,acceptCheckup}=require('../services/checkup.service');
 
 const getAllCheckupData = async (req, res) => {
     try {
@@ -23,7 +23,7 @@ const getAllCheckupData = async (req, res) => {
     }
     const deleteCheckupData = async (req, res) => {
         try {
-          const req_id = req.query.id;
+          const req_id = req.query.req_id;
           console.log(req_id);
           const req_deletedBy = req.query.deletedBy;
           console.log(req_deletedBy);
@@ -48,7 +48,9 @@ const getAllCheckupData = async (req, res) => {
     }
     const acceptCheckupData = async (req, res) => {
         try {
-        const checkup = await acceptCheckup(req.body);
+        const req_id = req.query.req_id;
+         console.log(req_id);
+        const checkup = await acceptCheckup(req_id);
         console.log(checkup);
         res.send(checkup);
         } catch (error) {

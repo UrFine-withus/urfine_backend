@@ -3,7 +3,7 @@ const {CheckupModel} = require('../models');
 
 const getAllCheckup = async (req, res) => {
     try {
-        const checkup = await CheckupModel.find();
+        const checkup = await CheckupModel.find({deleted:  {$exists: false }, isAccepted: false});
         return checkup;
     } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -52,9 +52,26 @@ const deleteCheckup = async (req_id,req_deletedBy) => {
   
 }
 
+const acceptCheckup = async (req_id) => {
+    try {
+        const checkup = await CheckupModel.findByIdAndUpdate({_id :req_id}, 
+        {$set:  {isAccepted: true}});
+        if(checkup){
+            return {
+                message: "Checkup accepted successfully"
+            };
+        }
+    } catch (error) {
+      console.error('Error accepting checkup:', error);
+      throw error;
+    }
+  
+}
+
 module.exports = {
     getAllCheckup,
     createCheckup,
     deleteCheckup,
-    getAcceptedCheckup
+    getAcceptedCheckup,
+    acceptCheckup
 }
