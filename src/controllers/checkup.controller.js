@@ -1,3 +1,4 @@
+const { compile } = require('morgan');
 const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup}=require('../services/checkup.service');
 
 const getAllCheckupData = async (req, res) => {
@@ -12,7 +13,7 @@ const getAllCheckupData = async (req, res) => {
   }
     const createCheckupData = async (req, res) => {
         try {
-        const checkup = await createCheckup();
+        const checkup = await createCheckup(req.body);
         console.log(checkup);
         res.send(checkup);
         } catch (error) {
@@ -22,7 +23,11 @@ const getAllCheckupData = async (req, res) => {
     }
     const deleteCheckupData = async (req, res) => {
         try {
-        const checkup = await deleteCheckup();
+          const req_id = req.query.id;
+          console.log(req_id);
+          const req_deletedBy = req.query.deletedBy;
+          console.log(req_deletedBy);
+        const checkup = await deleteCheckup(req_id,req_deletedBy);
         console.log(checkup);
         res.send(checkup);
         } catch (error) {

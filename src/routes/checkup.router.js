@@ -6,7 +6,7 @@ const { getAllCheckupData,createCheckupData,deleteCheckupData,getAcceptedCheckup
 router.get('/checkups',getAllCheckupData);
 router.get('/checkups/accepted',getAcceptedCheckupData);
 router.post('/checkups',createCheckupData);
-router.delete('/checkups',deleteCheckupData);
+router.patch('/checkups',deleteCheckupData);
 // Add more routes as needed
 
 module.exports = router;
