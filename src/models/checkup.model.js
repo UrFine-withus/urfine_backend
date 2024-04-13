@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const { add } = require('winston');
 
 const checkupSchema = new mongoose.Schema({
     _userID:{
@@ -30,7 +30,7 @@ const checkupSchema = new mongoose.Schema({
     blood_pressure:{
     type: Number,
     },
-    isAccepted:{
+    isAccepted:{          
         type: Boolean,
         default: false,
         required: true
