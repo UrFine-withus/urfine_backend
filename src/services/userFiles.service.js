@@ -1,42 +1,28 @@
 // Import any required modules here
-const { GridFsStorage } = require('multer-gridfs-storage');
-const fs = require('fs');
-const mongoose = require('mongoose');
+const util = require("util");
+const multer = require("multer");
+const { GridFsStorage } = require("multer-gridfs-storage");
 
 // Define your service methods
-const uploadFile = async (userId, file) => {
-  try {
-    const gfs = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'prescriptions' });
-
-    const uploadStream = gfs.openUploadStream(file.originalname);
+    var Storage = new GridFsStorage({
+      url: process.env.MONGODB_URL,
+      options: { useNewUrlParser: true, useUnifiedTopology: true },
+      file: (file) => {
+        const match = ["image/png", "image/jpeg"];
     
-    // Ensure the file object contains the stream
-    if (!file.stream) {
-      throw new Error('File stream is undefined');
-    }
-
-    // Pipe the file object stream to the upload stream
-    file.stream.pipe(uploadStream);
-
-    return new Promise((resolve, reject) => {
-      uploadStream.on('error', (error) => {
-        reject(error);
-      });
-      uploadStream.on('close', () => {
-        resolve({
-          _userID: userId,
-          id: uploadStream.id,
-          filename: uploadStream.filename,
-          contentType: file.mimetype,
-          createdAt: uploadStream.uploadDate
-        });
-      });
+        if (match.indexOf(file.mimetype) === -1) {
+          const filename = `${Date.now()}-prescriptions-${file.originalname}`;
+          return filename;
+        }
+    
+        return {
+          bucketName: dbConfig.imgBucket,
+          filename: `${Date.now()}-prescriptions-${file.originalname}`
+        };
+      }
     });
-  } catch (error) {
-    console.error('Error uploading file:', error);
-    throw error;
-  }
-};
+    var uploadFileitems = multer({ storage: Storage }).single("file");
+const uploadFiles = util.promisify(uploadFileitems);
 
 // const getFile = async (fileId) => {
 //   try {
@@ -51,7 +37,7 @@ const uploadFile = async (userId, file) => {
 // };
 
 module.exports = {
-  uploadFile,
+  uploadFiles,
   // getFile
 };
 
