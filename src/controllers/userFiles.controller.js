@@ -19,7 +19,7 @@ const uploadFileData = async (req, res) => {
     console.log(error);
 
     return res.send({
-      message: "Error when trying upload image: ${error}",
+      message:`Error when trying upload image: ${error}`,
     });
   }
 };
