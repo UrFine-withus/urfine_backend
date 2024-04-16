@@ -84,5 +84,6 @@ module.exports = {
     createCheckup,
     deleteCheckup,
     getAcceptedCheckup,
-    acceptCheckup
+    acceptCheckup,
+    getCheckupCount
 }
