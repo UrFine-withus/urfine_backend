@@ -1,15 +1,17 @@
 const express = require('express');
-const router = express.Router();
+const routes = express.Router();
 const {getAllEmergencyData,createEmergencyData,updateEmergencyData,deleteEmergencyData,getEmergencyProfileData} = require('../controllers/emergencyInfo.controller');
 
 // Define your routes
-router.get('/getallemergencycontact',getAllEmergencyData);
-router.post('/emergencycontact',createEmergencyData);
-router.put('/emergencycontact',updateEmergencyData);
-router.delete('/emergencycontact',deleteEmergencyData);
-router.get('/emergencycontact',getEmergencyProfileData);
+routes.route('/all')
+.get(getAllEmergencyData)
+routes.route('/')
+.post(createEmergencyData)
+.put(updateEmergencyData)
+.delete(deleteEmergencyData)
+.get(getEmergencyProfileData)
 
-// router.post('/getcontacts',checkUserData);
-// Add more routes as needed
+// .post('/getcontacts',checkUserData);
+// Add more  as needed
 
-module.exports = router;
+module.exports = routes;
