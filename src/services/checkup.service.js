@@ -22,6 +22,17 @@ const getAcceptedCheckup = async (req, res) => {
 
 }
 
+const getCheckupCount = async (req, res) => {
+    try {
+        const checkup = await CheckupModel.find({deleted:  {$exists: false }, isAccepted: false}).countDocuments();
+        return checkup;
+    } catch (error) {
+        console.error('Error fetching checkup:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+}
+
 const createCheckup = async (req, res) => {
     try {
         const checkup = new CheckupModel({...req});
