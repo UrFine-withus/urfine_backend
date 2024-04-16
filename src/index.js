@@ -23,7 +23,7 @@ connectToDb().then((connection) => {
   }});
 
 // Define your routes here
-const Routes = require('./routes/userFiles.router');
+const Routes = require('./routes');
 app.use('/', Routes);
 
 // Start the server
