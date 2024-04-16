@@ -1,12 +1,12 @@
 const express = require('express');
-const router = express.Router();
+const routes = express.Router();
 const {getUserData ,createUserData,checkUserData} = require('../controllers/userData.controller');
 
 // Define your routes
-router.route('/')
+routes.route('/')
      .get(getUserData)
      .post(createUserData);
-router.route('/check').post(checkUserData);
+routes.route('/check').post(checkUserData);
 // Add more routes as needed
 
-module.exports = router;
+module.exports = routes;
