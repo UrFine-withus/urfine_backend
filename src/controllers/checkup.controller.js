@@ -1,5 +1,5 @@
 const { compile } = require('morgan');
-const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup,acceptCheckup,etAllCheckup}=require('../services/checkup.service');
+const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup,acceptCheckup,CheckupCount}=require('../services/checkup.service');
 
 const getAllCheckupData = async (req, res) => {
     try {
@@ -11,9 +11,9 @@ const getAllCheckupData = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
-  const getCheckupCountData = async (req, res) => {
+  const CheckupCountData = async (req, res) => {
     try {
-      const checkup = await getCheckupCount();
+      const checkup = await CheckupCount();
       // console.log(checkup);
       res.send(checkup);
     } catch (error) {
@@ -80,6 +80,6 @@ const getAllCheckupData = async (req, res) => {
     deleteCheckupData,
     getAcceptedCheckupData,
     acceptCheckupData,
-    getCheckupCountData
+    CheckupCountData
   }
   
