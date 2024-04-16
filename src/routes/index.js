@@ -14,5 +14,4 @@ const routes = express.Router();
     routes.use('/healthlogs', HealthLogRouter);
     routes.use('/checkups', CheckupRouter);
 
-
 module.exports = routes;
