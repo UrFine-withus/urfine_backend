@@ -1,8 +1,8 @@
-logs
+
 *.log
 npm-debug.log*
 .env
-node_modules
+node_modules/
 dist
 dist-ssr
 *.local
@@ -10,10 +10,3 @@ dist-ssr
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
