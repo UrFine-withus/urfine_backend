@@ -4,7 +4,7 @@ const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup,acceptChecku
 const getAllCheckupData = async (req, res) => {
     try {
       const checkup = await getAllCheckup();
-      console.log(checkup);
+      // console.log(checkup);
       res.send(checkup);
     } catch (error) {
       console.error('Error fetching checkup:', error);
@@ -14,7 +14,7 @@ const getAllCheckupData = async (req, res) => {
     const createCheckupData = async (req, res) => {
         try {
         const checkup = await createCheckup(req.body);
-        console.log(checkup);
+        // console.log(checkup);
         res.send(checkup);
         } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -24,11 +24,11 @@ const getAllCheckupData = async (req, res) => {
     const deleteCheckupData = async (req, res) => {
         try {
           const req_id = req.query.req_id;
-          console.log(req_id);
+          // console.log(req_id);
           const req_deletedBy = req.query.deletedBy;
-          console.log(req_deletedBy);
+          // console.log(req_deletedBy);
         const checkup = await deleteCheckup(req_id,req_deletedBy);
-        console.log(checkup);
+        // console.log(checkup);
         res.send(checkup);
         } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -38,7 +38,7 @@ const getAllCheckupData = async (req, res) => {
     const getAcceptedCheckupData = async (req, res) => {
         try {
         const checkup = await getAcceptedCheckup();
-        console.log(checkup);
+        // console.log(checkup);
         res.send(checkup);
         } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -49,9 +49,9 @@ const getAllCheckupData = async (req, res) => {
     const acceptCheckupData = async (req, res) => {
         try {
         const req_id = req.query.req_id;
-         console.log(req_id);
+        //  console.log(req_id);
         const checkup = await acceptCheckup(req_id);
-        console.log(checkup);
+        // console.log(checkup);
         res.send(checkup);
         } catch (error) {
         console.error('Error fetching checkup:', error);
