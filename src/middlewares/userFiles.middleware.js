@@ -1,25 +1,38 @@
-const util = require("util");
-const multer = require("multer");
-const { GridFsStorage } = require("multer-gridfs-storage");
+// services.js
+const crypto = require('crypto');
+const { GridFsStorage } = require('multer-gridfs-storage');
+const multer = require('multer');
+const path = require('path');
 
-var Storage = new GridFsStorage({
-  url: process.env.MONGODB_URL,
-  options: { useNewUrlParser: true, useUnifiedTopology: true },
-  file: (req, file) => {
-    const match = ["image/png", "image/jpeg"];
 
-    if (match.indexOf(file.mimetype) === -1) {
-      const filename = `${Date.now()}-prescriptions-${file.originalname}`;
-      return filename;
+function initializeGridFsConnection(existingConnection) {
+    
+  // Initialize GridFS using the existing connection
+ const storage = new GridFsStorage({
+    db: existingConnection.connection.db, // Pass the existing connection's database object
+    file: (req, file) => {
+      return new Promise((resolve, reject) => {
+        crypto.randomBytes(16, (err, buf) => {
+          if (err) {
+            return reject(err);
+          }
+          const filename = buf.toString('hex') + path.extname(file.originalname);
+          const fileInfo = {
+            filename: filename,
+            bucketName: 'prescription'
+          };
+          resolve(fileInfo);
+        });
+      });
     }
+  });
+  return  getUploadMiddleware(storage)
+}
 
-    return {
-      bucketName: dbConfig.imgBucket,
-      filename: `${Date.now()}-prescriptions-${file.originalname}`
-    };
-  }
-});
+function getUploadMiddleware(store) {
+    // console.log("mutler is working ",storage)
+  // Return multer middleware with the initialized GridFS storage
+  return multer({ storage: store });
+}
 
-var uploadFiles = multer({ storage: Storage }).single("file");
-var uploadFilesMiddleware = util.promisify(uploadFiles);
-module.exports = uploadFilesMiddleware;
+module.exports = { initializeGridFsConnection, getUploadMiddleware };
