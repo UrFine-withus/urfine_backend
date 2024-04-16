@@ -4,7 +4,7 @@ const {uploadFileData} = require('../controllers/userFiles.controller');
 // const upload = multer();
 // Define your routes
 
-router.post('/upload/prescription', uploadFileData);
+router.route('/upload/prescription').post(uploadFileData);
 
 // app.post('/upload', upload.single('file'), (req, res) => {
     // res.json({ file: req.file });
