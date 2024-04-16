@@ -7,9 +7,9 @@ routes.route('/all')
 .get(getAllEmergencyData)
 routes.route('/')
 .post(createEmergencyData)
-.put('/',updateEmergencyData)
-.delete('/',deleteEmergencyData)
-.get('/',getEmergencyProfileData)
+.put(updateEmergencyData)
+.delete(deleteEmergencyData)
+.get(getEmergencyProfileData)
 
 // .post('/getcontacts',checkUserData);
 // Add more  as needed
