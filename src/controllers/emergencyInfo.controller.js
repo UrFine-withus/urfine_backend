@@ -6,7 +6,7 @@ const { getAllEmergency, createEmergency,updateEmergency,deleteEmergency,getEmer
 const getAllEmergencyData = async (req, res) => {
   try {
     const emergency = await getAllEmergency();
-    console.log(emergency);
+    // console.log(emergency);
     res.send(emergency);
   } catch (error) {
     console.error('Error fetching emergency:', error);
@@ -15,9 +15,9 @@ const getAllEmergencyData = async (req, res) => {
 };
 const getEmergencyProfileData = async (req, res) => {
   try {
-    console.log(req.query.profile);
+    // console.log(req.query.profile);
     const emergency = await getEmergencyProfile(req.query.profile);
-    console.log(emergency);
+    // console.log(emergency);
     res.send(emergency);
   } catch (error) {
     console.error('Error fetching emergency:', error);
@@ -27,9 +27,9 @@ const getEmergencyProfileData = async (req, res) => {
 }
 const createEmergencyData = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const emergency = await createEmergency(req.body);
-    console.log(emergency);
+    // console.log(emergency);
     res.send(emergency);
   } catch (error) {
     console.error('Error fetching emergency:', error);
@@ -41,7 +41,7 @@ const createEmergencyData = async (req, res) => {
 const updateEmergencyData = async (req, res) => {
   try {
     const emergency = await updateEmergency(req.body);
-    console.log(emergency);
+    // console.log(emergency);
     res.send(
       emergency);
   } catch (error) {
@@ -53,9 +53,9 @@ const updateEmergencyData = async (req, res) => {
 
 const deleteEmergencyData = async (req, res) => {
   try {
-    console.log(req.query._id);
+    // console.log(req.query._id);
     const emergency = await deleteEmergency(req.query._id);
-    console.log(emergency);
+    // console.log(emergency);
     res.send(emergency);
   } catch (error) {
     console.error('Error fetching emergency:', error);

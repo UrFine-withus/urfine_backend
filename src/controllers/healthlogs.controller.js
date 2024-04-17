@@ -3,7 +3,7 @@ const {getAllHealthLogs,createHealthLog,updateHealthLog,deleteHealthLog,getuserH
 const getAllHealthLogsData = async (req, res) => {
     try {
         const healthlogs = await getAllHealthLogs();
-        console.log(healthlogs);
+        // console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {
         console.error('Error fetching healthlogs:', error);
@@ -13,10 +13,10 @@ const getAllHealthLogsData = async (req, res) => {
 
 const createHealthLogData = async (req, res) => {
     try {
-        console.log(req.body);
+        // console.log(req.body);
         const _userID=req.query.userId
         const healthlogs = await createHealthLog(_userID,req.body);
-        console.log(healthlogs);
+        // console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {
         console.error('Error fetching healthlogs:', error);
@@ -28,7 +28,7 @@ const createHealthLogData = async (req, res) => {
 const updateHealthLogData = async (req, res) => {
     try {
         const healthlogs = await updateHealthLog(req.body);
-        console.log(healthlogs);
+        // console.log(healthlogs);
         res.send(
             healthlogs);
     } catch (error) {
@@ -40,9 +40,9 @@ const updateHealthLogData = async (req, res) => {
 
 const deleteHealthLogData = async (req, res) => {
     try {
-        console.log(req.query._Id);
+        // console.log(req.query._Id);
         const healthlogs = await deleteHealthLog(req.query._Id);
-        console.log(healthlogs);
+        // console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {
         console.error('Error fetching healthlogs:', error);
@@ -52,12 +52,12 @@ const deleteHealthLogData = async (req, res) => {
 
 const getUserHealthLogsData = async (req, res) => {
     try {
-        console.log(req.query.userId);
-        console.log(req.query.date);
+        // console.log(req.query.userId);
+        // console.log(req.query.date);
         const _userID=req.query.userId;
         const date = new Date(req.query.date);
         const healthlogs = await getuserHealthLogs(_userID,date);
-        console.log(healthlogs);
+        // console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {
         console.error('Error fetching healthlogs:', error);
@@ -68,9 +68,9 @@ const getUserHealthLogsData = async (req, res) => {
 
 const getHealthLogdateData = async (req, res) => {
     try {
-        console.log(req.query.userId);
+        // console.log(req.query.userId);
         const healthlogs = await getHealthLogdates(req.query.userId);
-        console.log(healthlogs);
+        // console.log(healthlogs);
         res.send(healthlogs);
     } catch (error) {
         console.error('Error fetching healthlogs:', error);

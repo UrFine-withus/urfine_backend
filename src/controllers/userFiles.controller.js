@@ -1,28 +1,22 @@
-// Import any required services or models here
- const { uploadFile} = require("../services/userFiles.service");
-
-const uploadFileData = async (req, res) => {
-  try {
-    await uploadFile(req, res);
-    console.log(req.file);
-
-    if (req.file == undefined) {
-      return res.send({
-        message: "You must select a file.",
-      });
+// controllers.js
+const { getUploadMiddleware } = require('../middlewares/userFiles.middleware');
+const multer = require('multer');
+// Initialize upload middleware
+const upload =getUploadMiddleware();
+console.log("upload",upload)
+// Controller function to handle file uploads
+function uploadFileData(req, res) {
+  upload.single('prescription')(req, res, function (err) {
+    if (err instanceof multer.MulterError) {
+      // A Multer error occurred when uploading
+      return res.status(500).json({ error: 'Multer error occurred', message: err.message });
+    } else if (err) {
+      // An unknown error occurred when uploading
+      return res.status(500).json({ error: 'An unknown error occurred', message: err.message });
     }
+    // File uploaded successfully
+    return res.status(200).json({ message: 'File uploaded successfully'});
+  });
+}
 
-    return res.send({
-      message: "File has been uploaded.",
-    });
-  } catch (error) {
-    console.log(error);
-
-    return res.send({
-      message:`Error when trying upload image: ${error}`,
-    });
-  }
-};
-module.exports = {
-uploadFileData
-};
+module.exports = { uploadFileData };

@@ -37,8 +37,21 @@ const checkUser = async (req) => {
   }
 }
 
+const getUserCount = async () => {
+  try {
+    console.log('Get user count function is working');
+    const userCount = await UserDataModel.find().count();
+    return userCount;
+     
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    throw error;
+  }
+
+}
 module.exports = {
   getUser,
   createUser,
-  checkUser
+  checkUser,
+  getUserCount
 };

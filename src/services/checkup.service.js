@@ -22,9 +22,20 @@ const getAcceptedCheckup = async (req, res) => {
 
 }
 
+const CheckupCount = async (req, res) => {
+    try {
+        const checkupCount = await CheckupModel.find({deleted:  {$exists: false }, isAccepted: false}).count();
+        return {checkupCount};
+    } catch (error) {
+        console.error('Error fetching checkup:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+
+}
+
 const createCheckup = async (req, res) => {
     try {
-        const checkup = new CheckupModel({...req});
+        const checkup = new CheckupModel({...req.body});
         return await checkup.save();
     } catch (error) {
         console.error('Error creating checkup:', error);
@@ -73,5 +84,6 @@ module.exports = {
     createCheckup,
     deleteCheckup,
     getAcceptedCheckup,
-    acceptCheckup
+    acceptCheckup,
+    CheckupCount
 }
