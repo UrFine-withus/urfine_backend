@@ -18,7 +18,7 @@ const getEmergencyProfileData = async (req, res) => {
     // console.log(req.query.profile);
     const emergency = await getEmergencyProfile(req.query.profile);
     // console.log(emergency);
-    res.send(emergency);
+    res.send({emergency});
   } catch (error) {
     console.error('Error fetching emergency:', error);
     res.status(500).json({ error: 'Internal Server Error' });
