@@ -33,8 +33,22 @@ const updateHealthLogData = async (req, res) => {
 
 }
 
+const deleteHealthLogData = async (req, res) => {
+    try {
+        const { id } = req.params;
+        // if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No healthlog with id: ${id}`);
+        await deleteHealthLog(id);
+        res.status(200).json({ message: "healthlog deleted successfully." });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+
+
+}
+
 module.exports = {
     getAllHealthLogsData,
     createHealthLogData,
-    updateHealthLogData
+    updateHealthLogData,
+    deleteHealthLogData
 }
