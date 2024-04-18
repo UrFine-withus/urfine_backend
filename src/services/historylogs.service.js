@@ -1,21 +1,21 @@
-const {HealthLogModel} = require('../models');
+const {HistoryLogModel} = require('../models');
 
-const getAllHealthLogs = async () => {
+const getAllHistoryLogs = async () => {
     try {
-        return await HealthLogModel.find();
+        return await HistoryLogModel.find();
     } catch (error) {
-        console.error('Error fetching healthlogs:', error);
+        console.error('Error fetching Historylogs:', error);
         throw new Error('Error fetching user');
     }
 }
 
-const createHealthLog = async (_userID, req) => {
+const createHistoryLog = async (_userID, req) => {
     try {
         const isEmptyReq = Object.values(req).every(value => value === '');
 
         if (isEmptyReq) {
             return {
-                message: "Health log details cannot be empty"
+                message: "History log details cannot be empty"
             };
         }
         
@@ -28,56 +28,56 @@ const createHealthLog = async (_userID, req) => {
         const endOfDay = new Date(currentDate);
         endOfDay.setHours(23, 59, 59, 999); // Set to end of the day
         
-        // Check if there is an existing health log for the user on the current day
-        const existingHealthLog = await HealthLogModel.findOne({
+        // Check if there is an existing History log for the user on the current day
+        const existingHistoryLog = await HistoryLogModel.findOne({
             _userID,
             createdAt: { $gte: startOfDay, $lte: endOfDay }
         });
         
-        if (existingHealthLog) {
+        if (existingHistoryLog) {
             return {
-                message: "A health log already exists for this user on the current day"
+                message: "A History log already exists for this user on the current day"
             };
         } else {
-            const newHealthLog = new HealthLogModel({ _userID, ...req });
-            return await newHealthLog.save();
+            const newHistoryLog = new HistoryLogModel({ _userID, ...req });
+            return await newHistoryLog.save();
         }
     } catch (error) {
-        console.error('Error creating health log:', error);
+        console.error('Error creating History log:', error);
         throw error;
     }
 };
 
 
-const updateHealthLog = async (req) => {
+const updateHistoryLog = async (req) => {
     try {
-        const data= await HealthLogModel.findByIdAndUpdate(req, req, { upsert: true, new: true });
+        const data= await HistoryLogModel.findByIdAndUpdate(req, req, { upsert: true, new: true });
         if(data){
             return {
-                message: "Health log updated successfully"
+                message: "History log updated successfully"
             };
         }
     } catch (error) {
-        console.error('Error updating health log:', error);
+        console.error('Error updating History log:', error);
         throw error;
     }
 };
 
-const deleteHealthLog = async (req) => {
+const deleteHistoryLog = async (req) => {
     try {
-        const data= await HealthLogModel.findByIdAndDelete(req);
+        const data= await HistoryLogModel.findByIdAndDelete(req);
         if(data){
             return {
-                message: "Health log deleted successfully"
+                message: "History log deleted successfully"
             };
         }
     } catch (error) {
-        console.error('Error deleting health log:', error);
+        console.error('Error deleting History log:', error);
         throw error;
     }
 };
 
-const getuserHealthLogs = async (_userID,date) => {
+const getuserHistoryLogs = async (_userID,date) => {
     
     try {
         
@@ -91,23 +91,23 @@ const getuserHealthLogs = async (_userID,date) => {
         endDate.setUTCDate(startDate.getUTCDate() + 1);
         endDate.setUTCHours(0, 0, 0, 0);
 
-        // Find health logs for the specified user and date range
-        return await HealthLogModel.find({
+        // Find History logs for the specified user and date range
+        return await HistoryLogModel.find({
             _userID,
             createdAt: { $gte: startDate, $lt: endDate }
         });
     } catch (error) {
-        console.error('Error fetching health log:', error);
+        console.error('Error fetching History log:', error);
         throw error;
     }
 };
 
 
-const getHealthLogdates = async (req) => {
+const getHistoryLogdates = async (req) => {
     const _userID = req;
     try {
         // Aggregate to get unique dates
-        const uniqueDates = await HealthLogModel.aggregate([
+        const uniqueDates = await HistoryLogModel.aggregate([
             { $match: { _userID } }, // Match logs for the specified user
             {
                 $group: {
@@ -138,18 +138,18 @@ const getHealthLogdates = async (req) => {
 
         return formattedDates;
     } catch (error) {
-        console.error('Error fetching health log dates:', error);
+        console.error('Error fetching History log dates:', error);
         throw error;
     }
 };
 
 
 module.exports = {
-    getAllHealthLogs,
-    createHealthLog,
-    updateHealthLog,
-    deleteHealthLog,
-    getuserHealthLogs,
-    getHealthLogdates
+    getAllHistoryLogs,
+    createHistoryLog,
+    updateHistoryLog,
+    deleteHistoryLog,
+    getuserHistoryLogs,
+    getHistoryLogdates
 
 }
