@@ -32,9 +32,25 @@ const updateHealthLogs = async (id, healthlog) => {
         throw error;
     }
 
+
 }
+
+const deleteHealthLogs = async (req) => {
+    try {
+        const data= await HealthLogModel.findByIdAndDelete(req);
+        if(data){
+            return {
+                message: "History log deleted successfully"
+            };
+        }
+    } catch (error) {
+        console.error('Error deleting History log:', error);
+        throw error;
+    }}
+
 module.exports = {
     getAllHealthLogs,
     createHealthLogs,
-    updateHealthLogs
+    updateHealthLogs,
+    deleteHealthLogs
 }
