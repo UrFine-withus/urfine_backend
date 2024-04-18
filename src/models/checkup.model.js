@@ -6,12 +6,16 @@ const checkupSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    name: {
+    details: {
+        type: String,
+        required: true
+    },
+    address: {
         type: String,
         required: true
     },
     requireNeeds:{
-        docter_needed:{
+        doctor_needed:{
             type: Boolean,
             required: true
         },
@@ -20,7 +24,7 @@ const checkupSchema = new mongoose.Schema({
             required: true
         },
         equipments_needed:{
-            type: Array,
+            type: String,
             required: true
         },
      },

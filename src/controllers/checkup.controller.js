@@ -24,8 +24,9 @@ const getAllCheckupData = async (req, res) => {
 
     const createCheckupData = async (req, res) => {
         try {
+          // console.log(req.body);
         const checkup = await createCheckup(req.body);
-        // console.log(checkup);
+         console.log(checkup);
         res.send(checkup);
         } catch (error) {
         console.error('Error fetching checkup:', error);

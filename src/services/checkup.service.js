@@ -35,7 +35,8 @@ const CheckupCount = async (req, res) => {
 
 const createCheckup = async (req, res) => {
     try {
-        const checkup = new CheckupModel({...req.body});
+        // console.log('Create checkup function is working');
+        const checkup = new CheckupModel({...req});
         return await checkup.save();
     } catch (error) {
         console.error('Error creating checkup:', error);
