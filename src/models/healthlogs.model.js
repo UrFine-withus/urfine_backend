@@ -5,7 +5,7 @@ const healthLogSchema = new mongoose.Schema({
     required:true
    },
    normal_value:{
-    type:String,
+    type:Array,
     required:true
    }
 });
