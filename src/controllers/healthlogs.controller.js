@@ -25,7 +25,7 @@ const updateHealthLogData = async (req, res) => {
         const { id } = req.params;
         const healthlog = req.body;
         // if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No healthlog with id: ${id}`);
-        const updatedHealthLog = await updateHealthLog(id, healthlog);
+        const updatedHealthLog = await (id, healthlog);
         res.status(200).json(updatedHealthLog);
     } catch (error) {
         res.status(500).json({ message: error.message });

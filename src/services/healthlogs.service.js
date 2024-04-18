@@ -19,8 +19,22 @@ const createHealthLogs = async (req, res) => {
     }
 
 }
+const updateHealthLogs = async (id, healthlog) => {
+    try {
+        const data= await HealthLogModel.findByIdAndUpdate(req, req, { upsert: true, new: true });
+        if(data){
+            return {
+                message: "History log updated successfully"
+            };
+        }
+    } catch (error) {
+        console.error('Error updating History log:', error);
+        throw error;
+    }
 
+}
 module.exports = {
     getAllHealthLogs,
-    createHealthLogs
+    createHealthLogs,
+    updateHealthLogs
 }
