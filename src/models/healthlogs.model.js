@@ -1,69 +1,13 @@
 const mongoose = require('mongoose');
 const healthLogSchema = new mongoose.Schema({
-    _userID:{
-        type:String,
-        required:true,
-    },
-    sugar:{
-        current:{
-            type:String,
-            required:true
-        },
-        normal:{
-            type:String,
-            required:true
-        },
-        level:{
-            type:String,
-            required:true
-        },
-    },
-    cholesterol:{
-        current:{
-            type:String,
-            required:true
-        },
-        normal:{
-            type:String,
-            required:true
-        },
-        level:{
-            type:String,
-            required:true
-        },
-    },
-    bloodpressure:{
-        current:{
-            type:String,
-            required:true
-        },
-        normal:{
-            type:String,
-            required:true
-        },
-        level:{
-            type:String,
-            required:true
-        },
-    },
-    creatine:{
-        current:{
-            type:String,
-            required:true
-        },
-        normal:{
-            type:String,
-            required:true
-        },
-        level:{
-            type:String,
-            required:true
-        },
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
+   label:{
+    type:String,
+    required:true
+   },
+   normal_value:{
+    type:String,
+    required:true
+   }
 });
 
 const HealthLog = mongoose.model('healthlog', healthLogSchema);
