@@ -32,7 +32,7 @@ const checkUserData = async (req, res) => {
     // console.log(_userID);
     const user = await checkUser({_userID});
     // console.log(user);
-    res.send(user);
+    res.send({user});
   } catch (error) {
     console.error('Error fetching user:', error);
     res.status(500).json({ error: 'Internal Server Error' });

@@ -1,5 +1,5 @@
 // Import any required models here
-const {UserDataModel} = require('../models');
+const {UserDataModel,UserInfoModel} = require('../models');
 
 // Define your service methods
 const getUser = async () => {
@@ -25,11 +25,22 @@ const createUser = async (req) => {
 const checkUser = async (req) => {
   try {
     console.log('Check user function is working')
-    const User= await UserDataModel.findOne(req);
-    if (User==null){
-      return "User not found";
+    // console.log(req);
+    let User= await UserDataModel.findOne(req);
+    
+    if (User) {
+      const user = await UserInfoModel.findOne(req);
+      if (user) {
+        const { name } = user;
+        // console.log(name);
+        return name;
+      } else {
+        return res.status(400).send("User details not found");
+      }
     }
-    return User;
+    else{
+      return res.status(400).send("User not found");
+    }
   }
   catch (error) {
     console.error('Error fetching users:', error);
