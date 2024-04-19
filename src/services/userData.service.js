@@ -1,5 +1,5 @@
 // Import any required models here
-const {UserDataModel} = require('../models');
+const {UserDataModel,UserInfoModel,HistoryLogModel,CheckupModel} = require('../models');
 
 // Define your service methods
 const getUser = async () => {
@@ -25,11 +25,22 @@ const createUser = async (req) => {
 const checkUser = async (req) => {
   try {
     console.log('Check user function is working')
-    const User= await UserDataModel.findOne(req);
-    if (User==null){
-      return "User not found";
+    // console.log(req);
+    let User= await UserDataModel.findOne(req);
+    
+    if (User) {
+      const user = await UserInfoModel.findOne(req);
+      if (user) {
+        const { name } = user;
+        // console.log(name);
+        return name;
+      } else {
+      throw new Error("User details not found");
+      }
     }
-    return User;
+    else{
+      throw new Error("User not found");
+    }
   }
   catch (error) {
     console.error('Error fetching users:', error);
@@ -49,9 +60,30 @@ const getUserCount = async () => {
   }
 
 }
+const deleteUser = async (req) => {
+  try {
+    console.log('Delete user function is working')
+    // console.log(req);
+    const user = await UserDataModel.findOne(req);
+    
+    if (user) {
+      await UserDataModel.deleteOne(req);
+      await UserInfoModel.deleteOne(req);
+      await HistoryLogModel.deleteMany(req);
+      await CheckupModel.deleteOne(req);
+      return "User details deleted successfully";
+    } else {
+      throw new Error("User not found");
+    }
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    throw error;
+  }
+}
 module.exports = {
   getUser,
   createUser,
   checkUser,
-  getUserCount
+  getUserCount,
+  deleteUser
 };
