@@ -10,10 +10,6 @@ const checkupSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    address: {
-        type: String,
-        required: true
-    },
     requireNeeds:{
         doctor_needed:{
             type: Boolean,

@@ -24,7 +24,7 @@ const getAcceptedCheckup = async (req, res) => {
 
 const CheckupCount = async (req, res) => {
     try {
-        const checkupCount = await CheckupModel.find({isAccepted: false}).count();
+        const checkupCount = await CheckupModel.find({deleted:  {$exists: false },isAccepted: false}).count();
         return {checkupCount};
     } catch (error) {
         console.error('Error fetching checkup:', error);
