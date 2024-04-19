@@ -92,10 +92,11 @@ const getuserHistoryLogs = async (_userID,date) => {
         endDate.setUTCHours(0, 0, 0, 0);
 
         // Find History logs for the specified user and date range
-        return await HistoryLogModel.find({
+        const userLog=await HistoryLogModel.find({
             _userID,
             createdAt: { $gte: startDate, $lt: endDate }
         });
+        return userLog;
     } catch (error) {
         console.error('Error fetching History log:', error);
         throw error;

@@ -58,8 +58,16 @@ const getUserHistoryLogsData = async (req, res) => {
         const date = new Date(req.query.date);
         const Historylogs = await getuserHistoryLogs(_userID,date);
         // console.log(Historylogs);
-        res.send(Historylogs);
+        if (Historylogs === null) {
+            // If Historylogs is null, send a 400 Bad Request response
+            res.status(400).json({message: "No History log found for the specified user and date" })
+        }
+         else {
+            // Otherwise, send the Historylogs
+            res.send(Historylogs);
+        }
     } catch (error) {
+        
         console.error('Error fetching Historylogs:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
