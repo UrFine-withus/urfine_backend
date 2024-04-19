@@ -50,9 +50,25 @@ const userCountData = async (req, res) => {
   }
 }
 
+const deleteUserData = async (req, res) => {
+  try {
+    const _userID = req.query.userId;
+    // console.log(_userID);
+    const user = await deleteUser(_userID);
+    // console.log(user);
+    res.send(user);
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+
+
+}
+
 module.exports = {
   getUserData,
   createUserData,
   checkUserData,
-  userCountData
+  userCountData,
+  deleteUserData
 };
