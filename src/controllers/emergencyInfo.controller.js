@@ -7,7 +7,7 @@ const getAllEmergencyData = async (req, res) => {
   try {
     const emergency = await getAllEmergency();
     // console.log(emergency);
-    res.send(emergency);
+    res.send({emergency});
   } catch (error) {
     console.error('Error fetching emergency:', error);
     res.status(500).json({ error: 'Internal Server Error' });
