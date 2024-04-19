@@ -1,6 +1,6 @@
 // Import any required services or models here
 
-const { getUser,createUser,checkUser,getUserCount } = require("../services/userData.service");
+const { getUser,createUser,checkUser,getUserCount,deleteUser } = require("../services/userData.service");
 
 // Define your controller methods
 
