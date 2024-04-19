@@ -40,9 +40,13 @@ const createHistoryLog = async (_userID, req) => {
             };
         } else {
             const newHistoryLog = new HistoryLogModel({ _userID, ...req });
-            return await newHistoryLog.save();
+            await newHistoryLog.save();
+            return {
+                message: "History log created"
+            };
         }
-    } catch (error) {
+        }
+     catch (error) {
         console.error('Error creating History log:', error);
         throw error;
     }
