@@ -39,6 +39,10 @@ const checkupSchema = new mongoose.Schema({
         default: false,
         required: true
     },
+    sheduledAt:{
+        type: Date,
+        default: null
+    },
     deleted:{
         deletedBy:{
             type: String,
