@@ -54,7 +54,7 @@ const deleteUserData = async (req, res) => {
   try {
     const _userID = req.query.userId;
     // console.log(_userID);
-    const user = await deleteUser(_userID);
+    const user = await deleteUser({_userID});
     // console.log(user);
     res.send(user);
   } catch (error) {

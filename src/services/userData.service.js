@@ -69,7 +69,7 @@ const deleteUser = async (req) => {
     if (user) {
       await UserDataModel.deleteOne(req);
       await UserInfoModel.deleteOne(req);
-      await HistoryLogModel.deleteOne(req);
+      await HistoryLogModel.deleteMany(req);
       await CheckupModel.deleteOne(req);
       return "User details deleted successfully";
     } else {
