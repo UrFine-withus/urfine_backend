@@ -42,11 +42,9 @@ const checkupSchema = new mongoose.Schema({
     deleted:{
         deletedBy:{
             type: String,
-            default: null
         },
         deletedAt:{
             type: Date,
-            default: null
         }
     },
     createdAt: {

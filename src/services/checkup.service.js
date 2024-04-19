@@ -77,7 +77,8 @@ const deleteCheckup = async (req_id,req_deletedBy) => {
         {$set:  {deleted:{
             deletedBy: req_deletedBy,
             deletedAt: Date.now()
-        }}});
+        }}}
+    );
         if(checkup){
             return {
                 message: "Checkup deleted successfully"
