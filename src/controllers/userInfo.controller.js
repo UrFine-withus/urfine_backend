@@ -19,9 +19,9 @@ const getUserInfoData = async (req, res) => {
   try {
     const userID=req.query.userId;
     // console.log("controller is working",userID);
-    const user = await getUserInfo(userID);
+    const userInfo = await getUserInfo(userID);
     // console.log(user);
-    res.send(user);
+    res.send({userInfo});
   } catch (error) {
     console.error('Error fetching user:', error);
     res.status(500).json({ error: 'Internal Server Error' });

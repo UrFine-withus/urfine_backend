@@ -10,10 +10,6 @@ const checkupSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    address: {
-        type: String,
-        required: true
-    },
     requireNeeds:{
         doctor_needed:{
             type: Boolean,
@@ -46,11 +42,9 @@ const checkupSchema = new mongoose.Schema({
     deleted:{
         deletedBy:{
             type: String,
-            default: null
         },
         deletedAt:{
             type: Date,
-            default: null
         }
     },
     createdAt: {
