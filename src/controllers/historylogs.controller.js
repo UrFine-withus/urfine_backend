@@ -64,7 +64,7 @@ const getUserHistoryLogsData = async (req, res) => {
         }
          else {
             // Otherwise, send the Historylogs
-            res.send({Historylogs});
+            res.send(Historylogs);
         }
     } catch (error) {
         
@@ -79,7 +79,7 @@ const getHistoryLogdateData = async (req, res) => {
         // console.log(req.query.userId);
         const Historylogs = await getHistoryLogdates(req.query.userId);
         // console.log(Historylogs);
-        res.send({Historylogs});
+        res.send(Historylogs);
     } catch (error) {
         console.error('Error fetching Historylogs:', error);
         res.status(500).json({ error: 'Internal Server Error' });
