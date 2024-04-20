@@ -4,7 +4,7 @@ const getAllHealthLogsData = async (req, res) => {
     try {
         console.log('Get all healthlogs function is working')
         const healthlogs = await getAllHealthLogs();
-        res.send(healthlogs) ;
+        res.send({healthlogs}) ;
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
