@@ -2,7 +2,10 @@ const {HistoryLogModel} = require('../models');
 
 const getAllHistoryLogs = async () => {
     try {
-        return await HistoryLogModel.find();
+        const historyLogs = await HistoryLogModel.find();
+        if (historyLogs) {
+            return  historyLogs ;
+        }
     } catch (error) {
         console.error('Error fetching Historylogs:', error);
         throw new Error('Error fetching user');
@@ -100,7 +103,11 @@ const getuserHistoryLogs = async (_userID,date) => {
             _userID,
             createdAt: { $gte: startDate, $lt: endDate }
         });
-        return userLog;
+        if (userLog.length > 0) {
+            return userLog[0];
+        } else {
+            return null;
+        }
     } catch (error) {
         console.error('Error fetching History log:', error);
         throw error;
