@@ -1,9 +1,10 @@
-const {getAllHealthLogs,createHealthLog,updateHealthLog,deleteHealthLog,getuserHealthLogs,getHealthLogdates}=require("../services/healthlogs.service");
+const {getAllHealthLogs,createHealthLogs ,updateHealthLogs,deleteHealthLogs}=require("../services/healthlogs.service");
 
 const getAllHealthLogsData = async (req, res) => {
     try {
+        console.log('Get all healthlogs function is working')
         const healthlogs = await getAllHealthLogs();
-        res.status(200).json(healthlogs);
+        res.send({healthlogs}) ;
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -12,8 +13,9 @@ const getAllHealthLogsData = async (req, res) => {
 const createHealthLogData = async (req, res) => {
     try {
         const healthlog = req.body;
-        const newHealthLog = await createHealthLog(healthlog);
-        res.status(201).json(newHealthLog);
+        const newHealthLog = await createHealthLogs(healthlog);
+    //    return res.status(201).json(newHealthLog);
+    res.send(newHealthLog) ;
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -22,11 +24,12 @@ const createHealthLogData = async (req, res) => {
 
 const updateHealthLogData = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.query;
+        console.log(id);
         const healthlog = req.body;
         // if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No healthlog with id: ${id}`);
-        const updatedHealthLog = await (id, healthlog);
-        res.status(200).json(updatedHealthLog);
+        const updatedHealthLog = await updateHealthLogs(id, healthlog);
+        res.send(updatedHealthLog)
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -35,9 +38,9 @@ const updateHealthLogData = async (req, res) => {
 
 const deleteHealthLogData = async (req, res) => {
     try {
-        const { id } = req.params;
+        const { id } = req.query.id;
         // if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No healthlog with id: ${id}`);
-        await deleteHealthLog(id);
+        await deleteHealthLogs(id);
         res.status(200).json({ message: "healthlog deleted successfully." });
     } catch (error) {
         res.status(500).json({ message: error.message });

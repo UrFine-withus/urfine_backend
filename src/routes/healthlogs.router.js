@@ -1,11 +1,11 @@
 const express = require('express');
-const router = express.Router();
+const routes = express.Router();
 const{getAllHealthLogsData,createHealthLogData,updateHealthLogData,deleteHealthLogData} = require('../controllers/healthlogs.controller');
 
-router.route('/')
+routes.route('/')
 .get(getAllHealthLogsData)
 .post(createHealthLogData)
 .put(updateHealthLogData)
 .delete(deleteHealthLogData)
 
-module.exports = router;
+module.exports = routes;
