@@ -8,7 +8,6 @@ const checkupSchema = new mongoose.Schema({
     },
     details: {
         type: String,
-        required: true
     },
     requireNeeds:{
         doctor_needed:{
@@ -21,7 +20,7 @@ const checkupSchema = new mongoose.Schema({
         },
         equipments_needed:{
             type: String,
-            required: true
+            
         },
      },
     spO2_level:{
