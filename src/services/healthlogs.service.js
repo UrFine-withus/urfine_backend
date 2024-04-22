@@ -12,7 +12,9 @@ const getAllHealthLogs = async (req, res) => {
 
 const createHealthLogs = async (req, res) => {
     try {
-        const healthlog = new  HealthLogsModel({ ...req});
+        const normal_value = [];
+        normal_value.push(req.normal_value);
+        const healthlog = new  HealthLogsModel({ normal_value,...req});
         return await healthlog.save();
     } catch (error) {
         res.status(201).json(newHealthLog);
@@ -20,8 +22,15 @@ const createHealthLogs = async (req, res) => {
 }
 const updateHealthLogs = async (id, req) => {
     try {
-        const data= await HealthLogsModel.findByIdAndUpdate(id, req, { upsert: true, new: true });
-        if(data){
+
+        const existingData = await HealthLogsModel.findById(id);
+        if(existingData){
+            existingData.normal_value.push(req.normal_value);
+        }
+        const updatedData = { ...existingData, ...req};
+        const data = await HealthLogsModel.findByIdAndUpdate(id, updatedData, { upsert: true, new: true });
+        if (data) {
+            console.log(data)
             return {
                 message: "Healthlog updated successfully"
             };
@@ -30,20 +39,19 @@ const updateHealthLogs = async (id, req) => {
         console.error('Error updating Health log:', error);
         throw error;
     }
-
-
 }
 
 const deleteHealthLogs = async (req) => {
     try {
-        const data= await HealthLogsModel.findByIdAndDelete(req);
+        const data= await HealthLogsModel.findOneAndDelete(req);
         if(data){
+            console.log(data)
             return {
-                message: "History log deleted successfully"
+                message: "Healthlog deleted successfully"
             };
         }
     } catch (error) {
-        console.error('Error deleting History log:', error);
+        console.error('Error deleting Health log:', error);
         throw error;
     }}
 
