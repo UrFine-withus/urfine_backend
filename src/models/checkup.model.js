@@ -6,12 +6,11 @@ const checkupSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    name: {
+    details: {
         type: String,
-        required: true
     },
     requireNeeds:{
-        docter_needed:{
+        doctor_needed:{
             type: Boolean,
             required: true
         },
@@ -20,8 +19,8 @@ const checkupSchema = new mongoose.Schema({
             required: true
         },
         equipments_needed:{
-            type: Array,
-            required: true
+            type: String,
+            
         },
      },
     spO2_level:{
@@ -35,14 +34,16 @@ const checkupSchema = new mongoose.Schema({
         default: false,
         required: true
     },
+    sheduledTo:{
+        type: String,
+        default: null
+    },
     deleted:{
         deletedBy:{
             type: String,
-            default: null
         },
         deletedAt:{
             type: Date,
-            default: null
         }
     },
     createdAt: {

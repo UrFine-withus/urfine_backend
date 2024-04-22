@@ -5,7 +5,11 @@ const {UserInfoModel} = require('../models');
 const addUserInfo = async (req) => {
   try {
     const userInfo = new  UserInfoModel({ ...req});
-    return await userInfo.save();
+    const create= await userInfo.save();
+    if(create){
+    return {
+      message: "User created successfully"
+    };}
   } catch (error) {
     console.error('Error creating user:', error);
     throw error;
@@ -31,7 +35,7 @@ const updateUserInfo = async (req) => {
         }
         catch (error) {
           console.error('Error fetching updating the user:', error);
-          res.status(500).json({ error: 'Internal Server Error' });
+          throw error;
         }
       }; 
 

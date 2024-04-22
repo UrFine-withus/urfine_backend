@@ -24,8 +24,10 @@ const getAllCheckupData = async (req, res) => {
 
     const createCheckupData = async (req, res) => {
         try {
-        const checkup = await createCheckup(req.body);
-        // console.log(checkup);
+          // console.log(req.body);
+          const _userID = req.query.userId;
+        const checkup = await createCheckup(_userID,req.body);
+         console.log(checkup);
         res.send(checkup);
         } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -59,9 +61,9 @@ const getAllCheckupData = async (req, res) => {
     }
     const acceptCheckupData = async (req, res) => {
         try {
-        const req_id = req.query.req_id;
-        //  console.log(req_id);
-        const checkup = await acceptCheckup(req_id);
+ 
+        //  console.log(req);
+        const checkup = await acceptCheckup(req.query);
         // console.log(checkup);
         res.send(checkup);
         } catch (error) {
