@@ -146,9 +146,9 @@ const getHistoryLogdates = async (req) => {
         ]);
 
         // Format the dates to "YYYY-MM-DD" string format
-        const formattedDates = uniqueDates.map(dateObj => dateObj.date.toISOString().slice(0, 10));
+        const UserLogDates = uniqueDates.map(dateObj => dateObj.date.toISOString().slice(0, 10));
 
-        return formattedDates;
+        return {UserLogDates};
     } catch (error) {
         console.error('Error fetching History log dates:', error);
         throw error;
