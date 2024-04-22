@@ -95,6 +95,7 @@ const acceptCheckup = async (req) => {
     try {
         const req_id = req.req_id;
         const req_date = req.req_date;
+        console.log(req_id,req_date);
         const checkup = await CheckupModel.findByIdAndUpdate({_id :req_id}, 
         {$set:  {
             isAccepted: true,
