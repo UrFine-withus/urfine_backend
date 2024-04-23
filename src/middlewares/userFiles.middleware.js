@@ -30,7 +30,7 @@ function initializeGridFsConnection(existingConnection) {
 }
 
 function getUploadMiddleware(store) {
-    // console.log("mutler is working ",storage)
+     console.log("mutler is working ",store)
   // Return multer middleware with the initialized GridFS storage
   return multer({ storage: store });
 }

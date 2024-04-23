@@ -12,8 +12,6 @@ async function connectToDb() {
         // Connect to MongoDB
        const connection = await mongoose.connect(dbUri, {
             dbName: 'Urfine', 
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
         });
         console.log('Connected to MongoDB ');
         return connection;
