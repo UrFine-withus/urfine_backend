@@ -37,17 +37,23 @@ const createHistoryLog = async (_userID, req) => {
             createdAt: { $gte: startOfDay, $lte: endOfDay }
         });
         
-        if (existingHistoryLog) {
-            return {
-                message: "A History log already exists for this user on the current day"
-            };
-        } else {
-            const newHistoryLog = new HistoryLogModel({ _userID, ...req });
-            await newHistoryLog.save();
-            return {
-                message: "History log created"
-            };
-        }
+        forEach(req.healthlog, (data) => {
+            console.log(data)
+        })
+
+
+
+        // if (existingHistoryLog) {
+        //     return {
+        //         message: "A History log already exists for this user on the current day"
+        //     };
+        // } else {
+        //     const newHistoryLog = new HistoryLogModel({ _userID, ...req });
+        //     await newHistoryLog.save();
+        //     return {
+        //         message: "History log created"
+        //     };
+        // }
         }
      catch (error) {
         console.error('Error creating History log:', error);
