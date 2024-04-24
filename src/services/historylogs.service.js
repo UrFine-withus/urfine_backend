@@ -1,3 +1,4 @@
+
 const {HistoryLogModel} = require('../models');
 
 const getAllHistoryLogs = async () => {
@@ -36,24 +37,41 @@ const createHistoryLog = async (_userID, req) => {
             _userID,
             createdAt: { $gte: startOfDay, $lte: endOfDay }
         });
+        const healthlog = [];
         
-        forEach(req.healthlog, (data) => {
-            console.log(data)
-        })
+        for (let i = 0; i < req.healthlog.length; i++) {
+            let level = null;
+            const normal_value = req.healthlog[i].normal_value;
+            const current_value = req.healthlog[i].current_value;
+             const value=parseInt(current_value);
+            const start = parseInt(normal_value.split('-')[0]);
+            const end = parseInt(normal_value.split('-')[1]);
+            // console.log(current_value);
+            // console.log(normal_value);
+            // console.log(start, end);
+            if (value < start) {
+                level = -1;
+            } else if (value >= start && value <= end) {
+                level = 0;
+            } else {
+                level = 1;
+            }
+            healthlog.push({ ...req.healthlog[i], level });
+        }
+        // console.log(healthlog);
 
 
-
-        // if (existingHistoryLog) {
-        //     return {
-        //         message: "A History log already exists for this user on the current day"
-        //     };
-        // } else {
-        //     const newHistoryLog = new HistoryLogModel({ _userID, ...req });
-        //     await newHistoryLog.save();
-        //     return {
-        //         message: "History log created"
-        //     };
-        // }
+        if (existingHistoryLog) {
+            return {
+                message: "A History log already exists for this user on the current day"
+            };
+        } else {
+            const newHistoryLog = new HistoryLogModel({ _userID, healthlog });
+            await newHistoryLog.save();
+            return {
+                message: "History log created"
+            };
+        }
         }
      catch (error) {
         console.error('Error creating History log:', error);
