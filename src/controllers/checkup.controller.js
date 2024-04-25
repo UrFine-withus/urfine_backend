@@ -1,7 +1,7 @@
-const { compile } = require('morgan');
+
 const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup,acceptCheckup,CheckupCount}=require('../services/checkup.service');
 
-const getAllCheckupData = async (req, res) => {
+const getAllCheckupRequestData = async (req, res) => {
     try {
       const checkup = await getAllCheckup();
       // console.log(checkup);
@@ -11,7 +11,7 @@ const getAllCheckupData = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
-  const CheckupCountData = async (req, res) => {
+  const CheckupRequestCountData = async (req, res) => {
     try {
       const checkup = await CheckupCount();
       // console.log(checkup);
@@ -22,7 +22,7 @@ const getAllCheckupData = async (req, res) => {
     }
   }
 
-    const createCheckupData = async (req, res) => {
+    const createCheckupRequestData = async (req, res) => {
         try {
           // console.log(req.body);
           const _userID = req.query.userId;
@@ -34,7 +34,7 @@ const getAllCheckupData = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }
-    const deleteCheckupData = async (req, res) => {
+    const deleteCheckupRequestData = async (req, res) => {
         try {
           const req_id = req.query.req_id;
           // console.log(req_id);
@@ -48,7 +48,7 @@ const getAllCheckupData = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }    
-    const getAcceptedCheckupData = async (req, res) => {
+    const getAcceptedCheckupRequestData = async (req, res) => {
         try {
         const checkup = await getAcceptedCheckup();
         // console.log(checkup);
@@ -59,7 +59,7 @@ const getAllCheckupData = async (req, res) => {
         }
     
     }
-    const acceptCheckupData = async (req, res) => {
+    const acceptCheckupRequestData = async (req, res) => {
         try {
  
         //  console.log(req);
@@ -77,11 +77,11 @@ const getAllCheckupData = async (req, res) => {
 
 
   module.exports = {
-    getAllCheckupData,
-    createCheckupData,
-    deleteCheckupData,
-    getAcceptedCheckupData,
-    acceptCheckupData,
-    CheckupCountData
+    getAllCheckupRequestData,
+    createCheckupRequestData,
+    deleteCheckupRequestData,
+    getAcceptedCheckupRequestData,
+    acceptCheckupRequestData,
+    CheckupRequestCountData
   }
   
