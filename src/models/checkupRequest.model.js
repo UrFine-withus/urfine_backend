@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { add } = require('winston');
 
-const checkupSchema = new mongoose.Schema({
+const checkupRequestSchema = new mongoose.Schema({
     _userID:{
         type: String,
         required: true,
@@ -52,6 +52,6 @@ const checkupSchema = new mongoose.Schema({
     }
 });
 
-const Checkup = mongoose.model('checkup',checkupSchema);
+const CheckupRequest = mongoose.model('checkup',checkupRequestSchema);
 
-module.exports = Checkup;
+module.exports = CheckupRequest;

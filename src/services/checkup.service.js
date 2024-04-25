@@ -1,9 +1,9 @@
 
-const {CheckupModel} = require('../models');
+const {CheckupRequestModel} = require('../models');
 
 const getAllCheckup = async (req, res) => {
     try {
-        const checkup = await CheckupModel.find({deleted:  {$exists: false }, isAccepted: false});
+        const checkup = await CheckupRequestModel.find({deleted:  {$exists: false }, isAccepted: false});
         return checkup;
     } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -13,7 +13,7 @@ const getAllCheckup = async (req, res) => {
 
 const getAcceptedCheckup = async (req, res) => {
     try {
-        const checkup = await CheckupModel.find({isAccepted: true});
+        const checkup = await CheckupRequestModel.find({isAccepted: true});
         return checkup;
     } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -24,7 +24,7 @@ const getAcceptedCheckup = async (req, res) => {
 
 const CheckupCount = async (req, res) => {
     try {
-        const checkupCount = await CheckupModel.find({deleted:  {$exists: false },isAccepted: false}).count();
+        const checkupCount = await CheckupRequestModel.find({deleted:  {$exists: false },isAccepted: false}).count();
         return {checkupCount};
     } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -52,7 +52,7 @@ const createCheckup = async (_userID,req) => {
         endOfDay.setHours(23, 59, 59, 999); // Set to end of the day
         
         // Check if there is an existing History log for the user on the current day
-        const existingCheckuprequest = await CheckupModel.findOne({
+        const existingCheckuprequest = await CheckupRequestModel.findOne({
             _userID,
             createdAt: { $gte: startOfDay, $lte: endOfDay }
         });   
@@ -61,7 +61,7 @@ const createCheckup = async (_userID,req) => {
                 message: "A Checkup request already exists for this user on the current day"
             };
         } else {
-        const checkup = new CheckupModel({_userID,...req});
+        const checkup = new CheckupRequestModel({_userID,...req});
         return await checkup.save();
         }
     } catch (error) {
@@ -73,7 +73,7 @@ const createCheckup = async (_userID,req) => {
 
 const deleteCheckup = async (req_id,req_deletedBy) => {
     try {
-        const checkup = await CheckupModel.findByIdAndUpdate({_id  :req_id}, 
+        const checkup = await CheckupRequestModel.findByIdAndUpdate({_id  :req_id}, 
         {$set:  {deleted:{
             deletedBy: req_deletedBy,
             deletedAt: Date.now()
@@ -96,7 +96,7 @@ const acceptCheckup = async (req) => {
         const req_id = req.req_id;
         const req_date = req.req_date;
         console.log(req_id,req_date);
-        const checkup = await CheckupModel.findByIdAndUpdate({_id :req_id}, 
+        const checkup = await CheckupRequestModel.findByIdAndUpdate({_id :req_id}, 
         {$set:  {
             isAccepted: true,
             sheduledTo:req_date
