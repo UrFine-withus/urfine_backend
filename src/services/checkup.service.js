@@ -1,7 +1,7 @@
 
-const {CheckupRequestModel} = require('../models');
+const {CheckupRequestModel,CheckupResultModel} = require('../models');
 
-const getAllCheckup = async (req, res) => {
+const getAllCheckupRequest = async (req, res) => {
     try {
         const checkup = await CheckupRequestModel.find({deleted:  {$exists: false }, isAccepted: false});
         return checkup;
@@ -11,7 +11,7 @@ const getAllCheckup = async (req, res) => {
     }
 }
 
-const getAcceptedCheckup = async (req, res) => {
+const getAcceptedCheckupRequest = async (req, res) => {
     try {
         const checkup = await CheckupRequestModel.find({isAccepted: true});
         return checkup;
@@ -22,7 +22,7 @@ const getAcceptedCheckup = async (req, res) => {
 
 }
 
-const CheckupCount = async (req, res) => {
+const CheckupCountRequest = async (req, res) => {
     try {
         const checkupCount = await CheckupRequestModel.find({deleted:  {$exists: false },isAccepted: false}).count();
         return {checkupCount};
@@ -91,7 +91,7 @@ const deleteCheckup = async (req_id,req_deletedBy) => {
   
 }
 
-const acceptCheckup = async (req) => {
+const acceptCheckupRequest = async (req) => {
     try {
         const req_id = req.req_id;
         const req_date = req.req_date;
@@ -114,10 +114,10 @@ const acceptCheckup = async (req) => {
 }
 
 module.exports = {
-    getAllCheckup,
+    Request,
     createCheckup,
     deleteCheckup,
-    getAcceptedCheckup,
-    acceptCheckup,
-    CheckupCount
+    getAcceptedCheckupRequest,
+    acceptCheckupRequest,
+    CheckupCountRequest
 }

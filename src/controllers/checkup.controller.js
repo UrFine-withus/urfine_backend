@@ -1,7 +1,7 @@
-const { compile } = require('morgan');
+
 const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup,acceptCheckup,CheckupCount}=require('../services/checkup.service');
 
-const getAllCheckupData = async (req, res) => {
+const getAllCheckupRequestData = async (req, res) => {
     try {
       const checkup = await getAllCheckup();
       // console.log(checkup);
@@ -11,7 +11,7 @@ const getAllCheckupData = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
-  const CheckupCountData = async (req, res) => {
+  const CheckupRequestCountData = async (req, res) => {
     try {
       const checkup = await CheckupCount();
       // console.log(checkup);
@@ -48,7 +48,7 @@ const getAllCheckupData = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }    
-    const getAcceptedCheckupData = async (req, res) => {
+    const getAcceptedCheckupRequestData = async (req, res) => {
         try {
         const checkup = await getAcceptedCheckup();
         // console.log(checkup);
@@ -59,7 +59,7 @@ const getAllCheckupData = async (req, res) => {
         }
     
     }
-    const acceptCheckupData = async (req, res) => {
+    const acceptCheckupRequestData = async (req, res) => {
         try {
  
         //  console.log(req);
@@ -77,11 +77,11 @@ const getAllCheckupData = async (req, res) => {
 
 
   module.exports = {
-    getAllCheckupData,
+    getAllCheckupRequestData,
     createCheckupRequestData,
     deleteCheckupRequestData,
-    getAcceptedCheckupData,
-    acceptCheckupData,
-    CheckupCountData
+    getAcceptedCheckupRequestData,
+    acceptCheckupRequestData,
+    CheckupRequestCountData
   }
   

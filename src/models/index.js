@@ -4,12 +4,14 @@ const EmergencyInfoModel = require('./emergencyInfo.model');
 const HistoryLogModel = require('./historylogs.model');
 const CheckupRequestModel = require('./checkupRequest.model');
 const HealthLogsModel=require('./healthlogs.model')
+const CheckupResultModel = require('./checkupResult.model');
 module.exports = {
     UserDataModel,
     UserInfoModel,
     EmergencyInfoModel,
     HistoryLogModel,
     CheckupRequestModel,
-    HealthLogsModel
+    HealthLogsModel,
+    CheckupResultModel
 
 };
