@@ -22,7 +22,7 @@ const getAllCheckupData = async (req, res) => {
     }
   }
 
-    const createCheckupData = async (req, res) => {
+    const createCheckupRequestData = async (req, res) => {
         try {
           // console.log(req.body);
           const _userID = req.query.userId;
@@ -34,7 +34,7 @@ const getAllCheckupData = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }
-    const deleteCheckupData = async (req, res) => {
+    const deleteCheckupRequestData = async (req, res) => {
         try {
           const req_id = req.query.req_id;
           // console.log(req_id);
@@ -78,8 +78,8 @@ const getAllCheckupData = async (req, res) => {
 
   module.exports = {
     getAllCheckupData,
-    createCheckupData,
-    deleteCheckupData,
+    createCheckupRequestData,
+    deleteCheckupRequestData,
     getAcceptedCheckupData,
     acceptCheckupData,
     CheckupCountData
