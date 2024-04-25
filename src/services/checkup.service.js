@@ -22,7 +22,7 @@ const getAcceptedCheckupRequest = async (req, res) => {
 
 }
 
-const CheckupCountRequest = async (req, res) => {
+const CheckupRequestCount = async (req, res) => {
     try {
         const checkupCount = await CheckupRequestModel.find({deleted:  {$exists: false },isAccepted: false}).count();
         return {checkupCount};
@@ -33,7 +33,7 @@ const CheckupCountRequest = async (req, res) => {
 
 }
 
-const createCheckup = async (_userID,req) => {
+const createCheckupRequest = async (_userID,req) => {
     try {
         // console.log('Create checkup function is working');
         const isEmptyReq = Object.values(req).every(value => value === '');
@@ -71,7 +71,7 @@ const createCheckup = async (_userID,req) => {
 
 }
 
-const deleteCheckup = async (req_id,req_deletedBy) => {
+const deleteCheckupRequest = async (req_id,req_deletedBy) => {
     try {
         const checkup = await CheckupRequestModel.findByIdAndUpdate({_id  :req_id}, 
         {$set:  {deleted:{
@@ -112,12 +112,46 @@ const acceptCheckupRequest = async (req) => {
     }
   
 }
+const createCheckupResult = async (_userID,req) => {
+    try {
+        const isEmptyReq = Object.values(req).every(value => value === '');
+        if (isEmptyReq) {
+            return {
+                message: "Checkup result details cannot be empty"
+            };
+        }
+        const checkupResult = new CheckupResultModel({_userID,...req});
+        return await checkupResult.save();
+    } catch (error) {
+        console.error('Error creating checkup result:', error);
+        throw error;
+    }
+
+}
+const updateCheckupResult = async (_id,req) => {
+    try {
+        const checkupResult = await CheckupResultModel.findByIdAndUpdate({_id}, 
+        {$set:  req});
+        if(checkupResult){
+            return {
+                message: "Checkup result updated successfully"
+            };
+        }
+    } catch (error) {
+      console.error('Error updating checkup result:', error);
+      throw error;
+    }
+  
+
+}
 
 module.exports = {
-    Request,
-    createCheckup,
-    deleteCheckup,
+    getAllCheckupRequest,
+    createCheckupRequest,
+    deleteCheckupRequest,
     getAcceptedCheckupRequest,
     acceptCheckupRequest,
-    CheckupCountRequest
+    CheckupRequestCount,
+    createCheckupResult,
+    updateCheckupResult
 }
