@@ -6,6 +6,7 @@ const historyLogSchema = new mongoose.Schema({
     },
     healthlog:[
         {
+            _id:false,
             label:{
                 type:String,
                 required:true

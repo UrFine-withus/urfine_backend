@@ -17,7 +17,9 @@ const checkupResultSchema = new mongoose.Schema({
         type: Array,  
     },
     equipment:[
+        
         {
+            _id:false,
             name: {
                 type: String,
             },
@@ -26,8 +28,9 @@ const checkupResultSchema = new mongoose.Schema({
             }
         }
     ],
-    prescription:[
+    medicine:[
         {
+            _id:false,
             name: {
                 type: String,
             },

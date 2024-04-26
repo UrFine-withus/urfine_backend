@@ -1,5 +1,5 @@
 
-const {getAllCheckupRequest,createCheckupRequest,deleteCheckupRequest,getAcceptedCheckupRequest,acceptCheckupRequest,CheckupRequestCount,createCheckupResult,updateCheckupResult}=require('../services/checkup.service');
+const {getAllCheckupRequest,createCheckupRequest,deleteCheckupRequest,getAcceptedCheckupRequest,acceptCheckupRequest,CheckupRequestCount,createCheckupResult,updateCheckupResult,getAllCheckupResult}=require('../services/checkup.service');
 
 const getAllCheckupRequestData = async (req, res) => {
     try {
@@ -74,7 +74,7 @@ const getAllCheckupRequestData = async (req, res) => {
     const createCheckupResultData = async (req, res) => {
         try {
         const _userID=req.query.userId;
-        const checkuResult = await createCheckupResult(_userID,req.body);
+        const checkupResult = await createCheckupResult(_userID,req.body);
         // console.log(checkup);
         res.send(checkupResult);
         } catch (error) {
