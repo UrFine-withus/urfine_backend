@@ -94,7 +94,17 @@ const getAllCheckupRequestData = async (req, res) => {
         }
     }
 
-
+const getAllCheckupResultData = async (req, res) => {
+    try {
+      const _userID=req.query.userId;
+      const checkup = await getAllCheckupResult(_userID);
+      // console.log(checkup);
+      res.send(checkup);
+    } catch (error) {
+      console.error('Error fetching checkup:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
 
 
   module.exports = {
@@ -105,6 +115,7 @@ const getAllCheckupRequestData = async (req, res) => {
     acceptCheckupRequestData,
     CheckupRequestCountData,
     createCheckupResultData,
-    updateCheckupResultData
+    updateCheckupResultData,
+    getAllCheckupResultData
   }
   
