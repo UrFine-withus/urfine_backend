@@ -6,31 +6,35 @@ const checkupResultSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    details: {
+    description: {
         type: String,
     },
-    requireNeeds:{
-        doctor_needed:{
-            type: Boolean,
-            required: true
-        },
-        nurse_assistance:{
-            type: Boolean,
-            required: true
-        },
-        equipments_needed:{
-            type: String,
-            
-        },
-     },
-    deleted:{
-        deletedBy:{
-            type: String,
-        },
-        deletedAt:{
-            type: Date,
-        }
+    doctor_incharge:{
+        type: String,
+        required: true,
     },
+    assistance:{
+        type: Array,  
+    },
+    equipment:[
+        {
+            name: {
+                type: String,
+            },
+            quantity: {
+                type: Number,
+            }
+        }
+    ],
+    prescription:[
+        {
+            name: {
+                type: String,
+            },
+            quantity: {
+                type: Number,
+            }
+        }],
     createdAt: {
         type: Date,
         default: Date.now

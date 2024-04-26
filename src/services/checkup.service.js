@@ -163,5 +163,6 @@ module.exports = {
     acceptCheckupRequest,
     CheckupRequestCount,
     createCheckupResult,
-    updateCheckupResult
+    updateCheckupResult,
+    getAllCheckupResult
 }
