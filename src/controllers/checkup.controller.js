@@ -1,9 +1,9 @@
 
-const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup,acceptCheckup,CheckupCount}=require('../services/checkup.service');
+const {getAllCheckupRequest,createCheckupRequest,deleteCheckupRequest,getAcceptedCheckupRequest,acceptCheckupRequest,CheckupRequestCount,createCheckupResult,updateCheckupResult,getAllCheckupResult}=require('../services/checkup.service');
 
 const getAllCheckupRequestData = async (req, res) => {
     try {
-      const checkup = await getAllCheckup();
+      const checkup = await getAllCheckupRequest();
       // console.log(checkup);
       res.send(checkup);
     } catch (error) {
@@ -13,7 +13,7 @@ const getAllCheckupRequestData = async (req, res) => {
   }
   const CheckupRequestCountData = async (req, res) => {
     try {
-      const checkup = await CheckupCount();
+      const checkup = await CheckupRequestCount();
       // console.log(checkup);
       res.send(checkup);
     } catch (error) {
@@ -26,7 +26,7 @@ const getAllCheckupRequestData = async (req, res) => {
         try {
           // console.log(req.body);
           const _userID = req.query.userId;
-        const checkup = await createCheckup(_userID,req.body);
+        const checkup = await createCheckupRequest(_userID,req.body);
          console.log(checkup);
         res.send(checkup);
         } catch (error) {
@@ -40,7 +40,7 @@ const getAllCheckupRequestData = async (req, res) => {
           // console.log(req_id);
           const req_deletedBy = req.query.deletedBy;
           // console.log(req_deletedBy);
-        const checkup = await deleteCheckup(req_id,req_deletedBy);
+        const checkup = await deleteCheckupRequest(req_id,req_deletedBy);
         // console.log(checkup);
         res.send(checkup);
         } catch (error) {
@@ -50,7 +50,7 @@ const getAllCheckupRequestData = async (req, res) => {
     }    
     const getAcceptedCheckupRequestData = async (req, res) => {
         try {
-        const checkup = await getAcceptedCheckup();
+        const checkup = await getAcceptedCheckupRequest();
         // console.log(checkup);
         res.send(checkup);
         } catch (error) {
@@ -63,7 +63,7 @@ const getAllCheckupRequestData = async (req, res) => {
         try {
  
         //  console.log(req);
-        const checkup = await acceptCheckup(req.query);
+        const checkup = await acceptCheckupRequest(req.query);
         // console.log(checkup);
         res.send(checkup);
         } catch (error) {
@@ -71,9 +71,40 @@ const getAllCheckupRequestData = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+    const createCheckupResultData = async (req, res) => {
+        try {
+        const _userID=req.query.userId;
+        const checkupResult = await createCheckupResult(_userID,req.body);
+        // console.log(checkup);
+        res.send(checkupResult);
+        } catch (error) {
+        console.error('Error fetching checkup:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+    const updateCheckupResultData = async (req, res) => {
+        try {
+        const _id=req.query.id;
+        const checkupResult = await updateCheckupResult(_id,req.body);
+        // console.log(checkup);
+        res.send(checkupResult);
+        } catch (error) {
+        console.error('Error fetching checkup:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 
-
-
+const getAllCheckupResultData = async (req, res) => {
+    try {
+      const _userID=req.query.userId;
+      const checkup = await getAllCheckupResult(_userID);
+      // console.log(checkup);
+      res.send(checkup);
+    } catch (error) {
+      console.error('Error fetching checkup:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
 
 
   module.exports = {
@@ -82,6 +113,9 @@ const getAllCheckupRequestData = async (req, res) => {
     deleteCheckupRequestData,
     getAcceptedCheckupRequestData,
     acceptCheckupRequestData,
-    CheckupRequestCountData
+    CheckupRequestCountData,
+    createCheckupResultData,
+    updateCheckupResultData,
+    getAllCheckupResultData
   }
   

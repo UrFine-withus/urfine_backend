@@ -4,11 +4,27 @@ const historyLogSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    healthlog:{
-        type:Array,
-        requires:true,
-        default: []
-    },
+    healthlog:[
+        {
+            _id:false,
+            label:{
+                type:String,
+                required:true
+            },
+            normal_value:{
+                type:String,
+                required:true
+            },
+            current_value:{
+                type:String,
+                required:true
+            },
+            level:{
+                type:Number,
+                required:true
+            },
+        }
+    ],
     createdAt: {
         type: Date,
         default: Date.now
