@@ -41,6 +41,6 @@ const checkupResultSchema = new mongoose.Schema({
     }
 });
 
-const CheckupResult = mongoose.model('checkup',checkupResultSchema);
+const CheckupResult = mongoose.model('checkupresult',checkupResultSchema);
 
 module.exports = CheckupResult;
