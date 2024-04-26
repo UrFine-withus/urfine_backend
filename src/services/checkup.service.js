@@ -145,6 +145,16 @@ const updateCheckupResult = async (_id,req) => {
 
 }
 
+const getAllCheckupResult = async (_userID) => {
+    try {
+        const checkup = await CheckupResultModel.find({_userID});
+        return checkup;
+    } catch (error) {
+        console.error('Error fetching checkup:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
 module.exports = {
     getAllCheckupRequest,
     createCheckupRequest,
