@@ -16,8 +16,8 @@ const checkupResultSchema = new mongoose.Schema({
     assistance:{
         type: Array,  
     },
-    equipment:[
-        
+    equipment:{
+        type:[
         {
             _id:false,
             name: {
@@ -27,8 +27,12 @@ const checkupResultSchema = new mongoose.Schema({
                 type: Number,
             }
         }
+        
     ],
-    medicine:[
+     default: []
+    },
+    medicine:{
+        type:[
         {
             _id:false,
             name: {
@@ -38,6 +42,8 @@ const checkupResultSchema = new mongoose.Schema({
                 type: Number,
             }
         }],
+        default: []
+    },
     createdAt: {
         type: Date,
         default: Date.now
