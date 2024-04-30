@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const dotenv = require('dotenv');
 const connectToDb =require('./config/Connection') 
 require('dotenv').config();
-const { initializeGridFsConnection } = require('./middlewares/userFiles.middleware');
+// const { initializeGridFsConnection } = require('./middlewares/userFiles.middleware');
 const app = express();
 const port = process.env.PORT || 3000;
 // Middleware
