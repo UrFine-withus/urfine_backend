@@ -1,89 +1,57 @@
-const {getAllHealthLogs,createHealthLog,updateHealthLog,deleteHealthLog,getuserHealthLogs,getHealthLogdates}=require("../services/healthlogs.service");
+const {getAllHealthLogs,createHealthLogs ,updateHealthLogs,deleteHealthLogs}=require("../services/healthlogs.service");
 
 const getAllHealthLogsData = async (req, res) => {
     try {
+        console.log('Get all healthlogs function is working')
         const healthlogs = await getAllHealthLogs();
-        // console.log(healthlogs);
-        res.send(healthlogs);
+        res.send({healthlogs}) ;
     } catch (error) {
-        console.error('Error fetching healthlogs:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ message: error.message });
     }
 }
 
 const createHealthLogData = async (req, res) => {
     try {
-        // console.log(req.body);
-        const _userID=req.query.userId
-        const healthlogs = await createHealthLog(_userID,req.body);
-        // console.log(healthlogs);
-        res.send(healthlogs);
+        const healthlog = req.body;
+        const newHealthLog = await createHealthLogs(healthlog);
+    //    return res.status(201).json(newHealthLog);
+    res.send(newHealthLog) ;
     } catch (error) {
-        console.error('Error fetching healthlogs:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ message: error.message });
     }
 
-}   
+}
 
 const updateHealthLogData = async (req, res) => {
     try {
-        const healthlogs = await updateHealthLog(req.body);
-        // console.log(healthlogs);
-        res.send(
-            healthlogs);
+        const { id } = req.query;
+        console.log(id);
+        const healthlog = req.body;
+        // if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No healthlog with id: ${id}`);
+        const updatedHealthLog = await updateHealthLogs(id, healthlog);
+        res.send(updatedHealthLog)
     } catch (error) {
-        console.error('Error fetching healthlogs:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ message: error.message });
     }
 
 }
 
 const deleteHealthLogData = async (req, res) => {
     try {
-        // console.log(req.query._Id);
-        const healthlogs = await deleteHealthLog(req.query._Id);
-        // console.log(healthlogs);
-        res.send(healthlogs);
+        const { id } = req.query.id;
+        // if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No healthlog with id: ${id}`);
+        await deleteHealthLogs(id);
+        res.status(200).json({ message: "healthlog deleted successfully." });
     } catch (error) {
-        console.error('Error fetching healthlogs:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-}
-
-const getUserHealthLogsData = async (req, res) => {
-    try {
-        // console.log(req.query.userId);
-        // console.log(req.query.date);
-        const _userID=req.query.userId;
-        const date = new Date(req.query.date);
-        const healthlogs = await getuserHealthLogs(_userID,date);
-        // console.log(healthlogs);
-        res.send(healthlogs);
-    } catch (error) {
-        console.error('Error fetching healthlogs:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-
-}
-
-const getHealthLogdateData = async (req, res) => {
-    try {
-        // console.log(req.query.userId);
-        const healthlogs = await getHealthLogdates(req.query.userId);
-        // console.log(healthlogs);
-        res.send(healthlogs);
-    } catch (error) {
-        console.error('Error fetching healthlogs:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json({ message: error.message });
     }
 
 
 }
+
 module.exports = {
     getAllHealthLogsData,
     createHealthLogData,
     updateHealthLogData,
-    deleteHealthLogData,
-    getUserHealthLogsData,
-    getHealthLogdateData
+    deleteHealthLogData
 }

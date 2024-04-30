@@ -1,9 +1,9 @@
-const { compile } = require('morgan');
-const {getAllCheckup,createCheckup,deleteCheckup,getAcceptedCheckup,acceptCheckup,CheckupCount}=require('../services/checkup.service');
 
-const getAllCheckupData = async (req, res) => {
+const {getAllCheckupRequest,createCheckupRequest,deleteCheckupRequest,getAcceptedCheckupRequest,acceptCheckupRequest,CheckupRequestCount,createCheckupResult,updateCheckupResult,getAllCheckupResult}=require('../services/checkup.service');
+
+const getAllCheckupRequestData = async (req, res) => {
     try {
-      const checkup = await getAllCheckup();
+      const checkup = await getAllCheckupRequest();
       // console.log(checkup);
       res.send(checkup);
     } catch (error) {
@@ -11,9 +11,9 @@ const getAllCheckupData = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
-  const CheckupCountData = async (req, res) => {
+  const CheckupRequestCountData = async (req, res) => {
     try {
-      const checkup = await CheckupCount();
+      const checkup = await CheckupRequestCount();
       // console.log(checkup);
       res.send(checkup);
     } catch (error) {
@@ -22,23 +22,25 @@ const getAllCheckupData = async (req, res) => {
     }
   }
 
-    const createCheckupData = async (req, res) => {
+    const createCheckupRequestData = async (req, res) => {
         try {
-        const checkup = await createCheckup(req.body);
-        // console.log(checkup);
+          // console.log(req.body);
+          const _userID = req.query.userId;
+        const checkup = await createCheckupRequest(_userID,req.body);
+         console.log(checkup);
         res.send(checkup);
         } catch (error) {
         console.error('Error fetching checkup:', error);
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }
-    const deleteCheckupData = async (req, res) => {
+    const deleteCheckupRequestData = async (req, res) => {
         try {
           const req_id = req.query.req_id;
           // console.log(req_id);
           const req_deletedBy = req.query.deletedBy;
           // console.log(req_deletedBy);
-        const checkup = await deleteCheckup(req_id,req_deletedBy);
+        const checkup = await deleteCheckupRequest(req_id,req_deletedBy);
         // console.log(checkup);
         res.send(checkup);
         } catch (error) {
@@ -46,9 +48,9 @@ const getAllCheckupData = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }    
-    const getAcceptedCheckupData = async (req, res) => {
+    const getAcceptedCheckupRequestData = async (req, res) => {
         try {
-        const checkup = await getAcceptedCheckup();
+        const checkup = await getAcceptedCheckupRequest();
         // console.log(checkup);
         res.send(checkup);
         } catch (error) {
@@ -57,11 +59,11 @@ const getAllCheckupData = async (req, res) => {
         }
     
     }
-    const acceptCheckupData = async (req, res) => {
+    const acceptCheckupRequestData = async (req, res) => {
         try {
-        const req_id = req.query.req_id;
-        //  console.log(req_id);
-        const checkup = await acceptCheckup(req_id);
+ 
+        //  console.log(req);
+        const checkup = await acceptCheckupRequest(req.query);
         // console.log(checkup);
         res.send(checkup);
         } catch (error) {
@@ -69,17 +71,51 @@ const getAllCheckupData = async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+    const createCheckupResultData = async (req, res) => {
+        try {
+        const _userID=req.query.userId;
+        const checkupResult = await createCheckupResult(_userID,req.body);
+        // console.log(checkup);
+        res.send(checkupResult);
+        } catch (error) {
+        console.error('Error fetching checkup:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
+    const updateCheckupResultData = async (req, res) => {
+        try {
+        const _id=req.query.id;
+        const checkupResult = await updateCheckupResult(_id,req.body);
+        // console.log(checkup);
+        res.send(checkupResult);
+        } catch (error) {
+        console.error('Error fetching checkup:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 
-
-
+const getAllCheckupResultData = async (req, res) => {
+    try {
+      const _userID=req.query.userId;
+      const checkup = await getAllCheckupResult(_userID);
+      // console.log(checkup);
+      res.send(checkup);
+    } catch (error) {
+      console.error('Error fetching checkup:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
 
 
   module.exports = {
-    getAllCheckupData,
-    createCheckupData,
-    deleteCheckupData,
-    getAcceptedCheckupData,
-    acceptCheckupData,
-    CheckupCountData
+    getAllCheckupRequestData,
+    createCheckupRequestData,
+    deleteCheckupRequestData,
+    getAcceptedCheckupRequestData,
+    acceptCheckupRequestData,
+    CheckupRequestCountData,
+    createCheckupResultData,
+    updateCheckupResultData,
+    getAllCheckupResultData
   }
   

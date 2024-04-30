@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
 const { add } = require('winston');
 
-const checkupSchema = new mongoose.Schema({
+const checkupRequestSchema = new mongoose.Schema({
     _userID:{
         type: String,
         required: true,
     },
-    name: {
+    details: {
         type: String,
-        required: true
     },
     requireNeeds:{
-        docter_needed:{
+        doctor_needed:{
             type: Boolean,
             required: true
         },
@@ -20,8 +19,8 @@ const checkupSchema = new mongoose.Schema({
             required: true
         },
         equipments_needed:{
-            type: Array,
-            required: true
+            type: String,
+            
         },
      },
     spO2_level:{
@@ -35,14 +34,16 @@ const checkupSchema = new mongoose.Schema({
         default: false,
         required: true
     },
+    sheduledTo:{
+        type: String,
+        default: null
+    },
     deleted:{
         deletedBy:{
             type: String,
-            default: null
         },
         deletedAt:{
             type: Date,
-            default: null
         }
     },
     createdAt: {
@@ -51,6 +52,6 @@ const checkupSchema = new mongoose.Schema({
     }
 });
 
-const Checkup = mongoose.model('checkup',checkupSchema);
+const CheckupRequest = mongoose.model('checkuprequest',checkupRequestSchema);
 
-module.exports = Checkup;
+module.exports = CheckupRequest;
