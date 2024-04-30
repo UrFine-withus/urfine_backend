@@ -1,9 +1,9 @@
 
-const {CheckupModel} = require('../models');
+const {CheckupRequestModel,CheckupResultModel} = require('../models');
 
-const getAllCheckup = async (req, res) => {
+const getAllCheckupRequest = async (req, res) => {
     try {
-        const checkup = await CheckupModel.find({deleted:  {$exists: false }, isAccepted: false});
+        const checkup = await CheckupRequestModel.find({deleted:  {$exists: false }, isAccepted: false});
         return checkup;
     } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -11,9 +11,9 @@ const getAllCheckup = async (req, res) => {
     }
 }
 
-const getAcceptedCheckup = async (req, res) => {
+const getAcceptedCheckupRequest = async (req, res) => {
     try {
-        const checkup = await CheckupModel.find({isAccepted: true});
+        const checkup = await CheckupRequestModel.find({isAccepted: true});
         return checkup;
     } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -22,9 +22,9 @@ const getAcceptedCheckup = async (req, res) => {
 
 }
 
-const CheckupCount = async (req, res) => {
+const CheckupRequestCount = async (req, res) => {
     try {
-        const checkupCount = await CheckupModel.find({deleted:  {$exists: false },isAccepted: false}).count();
+        const checkupCount = await CheckupRequestModel.find({deleted:  {$exists: false },isAccepted: false}).count();
         return {checkupCount};
     } catch (error) {
         console.error('Error fetching checkup:', error);
@@ -33,7 +33,7 @@ const CheckupCount = async (req, res) => {
 
 }
 
-const createCheckup = async (_userID,req) => {
+const createCheckupRequest = async (_userID,req) => {
     try {
         // console.log('Create checkup function is working');
         const isEmptyReq = Object.values(req).every(value => value === '');
@@ -52,7 +52,7 @@ const createCheckup = async (_userID,req) => {
         endOfDay.setHours(23, 59, 59, 999); // Set to end of the day
         
         // Check if there is an existing History log for the user on the current day
-        const existingCheckuprequest = await CheckupModel.findOne({
+        const existingCheckuprequest = await CheckupRequestModel.findOne({
             _userID,
             createdAt: { $gte: startOfDay, $lte: endOfDay }
         });   
@@ -61,7 +61,7 @@ const createCheckup = async (_userID,req) => {
                 message: "A Checkup request already exists for this user on the current day"
             };
         } else {
-        const checkup = new CheckupModel({_userID,...req});
+        const checkup = new CheckupRequestModel({_userID,...req});
         return await checkup.save();
         }
     } catch (error) {
@@ -71,9 +71,9 @@ const createCheckup = async (_userID,req) => {
 
 }
 
-const deleteCheckup = async (req_id,req_deletedBy) => {
+const deleteCheckupRequest = async (req_id,req_deletedBy) => {
     try {
-        const checkup = await CheckupModel.findByIdAndUpdate({_id  :req_id}, 
+        const checkup = await CheckupRequestModel.findByIdAndUpdate({_id  :req_id}, 
         {$set:  {deleted:{
             deletedBy: req_deletedBy,
             deletedAt: Date.now()
@@ -91,12 +91,12 @@ const deleteCheckup = async (req_id,req_deletedBy) => {
   
 }
 
-const acceptCheckup = async (req) => {
+const acceptCheckupRequest = async (req) => {
     try {
         const req_id = req.req_id;
         const req_date = req.req_date;
         console.log(req_id,req_date);
-        const checkup = await CheckupModel.findByIdAndUpdate({_id :req_id}, 
+        const checkup = await CheckupRequestModel.findByIdAndUpdate({_id :req_id}, 
         {$set:  {
             isAccepted: true,
             sheduledTo:req_date
@@ -112,12 +112,57 @@ const acceptCheckup = async (req) => {
     }
   
 }
+const createCheckupResult = async (_userID,req) => {
+    try {
+        const isEmptyReq = Object.values(req).every(value => value === '');
+        if (isEmptyReq) {
+            return {
+                message: "Checkup result details cannot be empty"
+            };
+        }
+        const checkupResult = new CheckupResultModel({_userID,...req});
+        return await checkupResult.save();
+    } catch (error) {
+        console.error('Error creating checkup result:', error);
+        throw error;
+    }
+
+}
+const updateCheckupResult = async (_id,req) => {
+    try {
+        const checkupResult = await CheckupResultModel.findByIdAndUpdate({_id}, 
+        {$set:  req});
+        if(checkupResult){
+            return {
+                message: "Checkup result updated successfully"
+            };
+        }
+    } catch (error) {
+      console.error('Error updating checkup result:', error);
+      throw error;
+    }
+  
+
+}
+
+const getAllCheckupResult = async (_userID) => {
+    try {
+        const checkupResult = await CheckupResultModel.find({_userID});
+        return {checkupResult};
+    } catch (error) {
+        console.error('Error fetching checkup:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
 
 module.exports = {
-    getAllCheckup,
-    createCheckup,
-    deleteCheckup,
-    getAcceptedCheckup,
-    acceptCheckup,
-    CheckupCount
+    getAllCheckupRequest,
+    createCheckupRequest,
+    deleteCheckupRequest,
+    getAcceptedCheckupRequest,
+    acceptCheckupRequest,
+    CheckupRequestCount,
+    createCheckupResult,
+    updateCheckupResult,
+    getAllCheckupResult
 }
