@@ -1,11 +1,11 @@
 const express = require('express');
 const routes = express.Router();
-const { getPrescriptionData } = require('../controllers/prescription.controller');
+const { getPrescriptionData,createPrescriptionData } = require('../controllers/prescription.controller');
 
 // Define your routes
 routes.route('/')
      .get(getPrescriptionData)
-     // .post(createUserData)
+      .post(createPrescriptionData)
      // .delete(deleteUserData);
 // Add more routes as needed
 

@@ -12,6 +12,10 @@ const getPrescription = async () => {
     }
 }
 
+const createPrescription = async (req) => {
+
+}
 module.exports = {
-    getPrescription
+    getPrescription,
+    createPrescription
 };
