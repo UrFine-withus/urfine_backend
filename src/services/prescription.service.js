@@ -1,4 +1,4 @@
-import { PrescriptionModel} from '../models/index';
+const {PrescriptionModel} = require('../models');
 
 const getPrescription = async () => {
     try {
