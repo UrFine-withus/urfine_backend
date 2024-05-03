@@ -12,12 +12,14 @@ const getPrescriptionData = async (req, res) => {
 
 const createPrescriptionData = async (req, res) => {
     try {
+        if (!req.body) {
+            return res.status(400).json({ error: "Body cannot be empty" });
+        }
         const prescription = await createPrescription(req.body);
         return res.status(201).json(prescription);
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
-
 }
 module.exports = {
     getPrescriptionData,

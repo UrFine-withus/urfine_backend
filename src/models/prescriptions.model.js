@@ -7,7 +7,6 @@ const prescriptionSchema = new mongoose.Schema({
     },
     prescription_image_url:{
         type: [String],
-        required: true,
         default: []
       },
       
