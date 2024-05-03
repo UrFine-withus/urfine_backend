@@ -1,4 +1,4 @@
-const  { getPrescription,createPrescription} = require('../services/prescription.service');
+const  { getPrescription,createPrescription,deletePrescription} = require('../services/prescription.service');
 
 
 const getPrescriptionData = async (req, res) => {
@@ -21,8 +21,18 @@ const createPrescriptionData = async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 }
+const deletePrescriptionData = async (req, res) => {
+    try {
+        const prescription_id = req.query.prescription_id;
+        const prescription = await deletePrescription(prescription_id);
+        return res.status(201).json(prescription);
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+}
 module.exports = {
     getPrescriptionData,
-    createPrescriptionData
+    createPrescriptionData,
+    deletePrescriptionData
 
 };

@@ -28,8 +28,20 @@ const createPrescription = async (req) => {
         throw new Error('Error creating Prescription');
     }
 }
+
+const deletePrescription = async (prescription_id) => {
+    try {
+        const prescription = await PrescriptionModel.findByIdAndDelete(prescription_id);
+        return prescription;
+    } catch (error) {
+        console.error('Error deleting Prescription:', error);
+        throw new Error('Error deleting Prescription');
+    }
+
+}
 module.exports = {
     getPrescription,
-    createPrescription
+    createPrescription,
+    deletePrescription
 };
 
