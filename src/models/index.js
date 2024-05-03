@@ -5,6 +5,7 @@ const HistoryLogModel = require('./historylogs.model');
 const CheckupRequestModel = require('./checkupRequest.model');
 const HealthLogsModel=require('./healthlogs.model')
 const CheckupResultModel = require('./checkupResult.model');
+const PrescriptionModel = require('./prescriptions.model');
 module.exports = {
     UserDataModel,
     UserInfoModel,
@@ -12,6 +13,7 @@ module.exports = {
     HistoryLogModel,
     CheckupRequestModel,
     HealthLogsModel,
-    CheckupResultModel
+    CheckupResultModel,
+    PrescriptionModel
 
 };
