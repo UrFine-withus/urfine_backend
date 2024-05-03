@@ -12,7 +12,7 @@ const getPrescription = async () => {
     }
 }
 
-const createPrescription = async (req) => {
+const uploadPrescription = async (req) => {
     try {
         
         const currentDate = new Date();
@@ -76,7 +76,7 @@ const getUserPrescription = async (_userID) => {
 }
 module.exports = {
     getPrescription,
-    createPrescription,
+    uploadPrescription,
     deletePrescription,
     getUserPrescription
 };
