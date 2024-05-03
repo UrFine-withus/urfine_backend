@@ -1,13 +1,13 @@
 const express = require('express');
 const routes = express.Router();
-const { getPrescriptionData,createPrescriptionData,deletePrescriptionData,getUserPrescriptionData} = require('../controllers/prescription.controller');
+const { getPrescriptionData,uploadPrescriptionData,deletePrescriptionData,getUserPrescriptionData} = require('../controllers/prescription.controller');
 
 // Define your routes
 routes.route('/')
      .get(getPrescriptionData)
-     .post(createPrescriptionData)
-     .delete(deletePrescriptionData);
+     .patch(uploadPrescriptionData)
+     // .delete(deletePrescriptionData);
 routes.route('/:userId')
      .get(getUserPrescriptionData)
-     // .post(createPrescriptionData)
+     // .post(uploadPrescriptionData)
 module.exports = routes;

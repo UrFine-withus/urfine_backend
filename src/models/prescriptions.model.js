@@ -9,7 +9,6 @@ const prescriptionSchema = new mongoose.Schema({
         type: [String],
         default: []
       },
-      
     upload_month:{
         type: String,
         required: true,

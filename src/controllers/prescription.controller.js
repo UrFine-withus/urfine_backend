@@ -1,4 +1,4 @@
-const  { getPrescription,createPrescription,deletePrescription,getUserPrescription} = require('../services/prescription.service');
+const  { getPrescription,uploadPrescription,deletePrescription,getUserPrescription} = require('../services/prescription.service');
 
 
 const getPrescriptionData = async (req, res) => {
@@ -10,12 +10,12 @@ const getPrescriptionData = async (req, res) => {
     }
 }
 
-const createPrescriptionData = async (req, res) => {
+const uploadPrescriptionData = async (req, res) => {
     try {
         if (!req.body) {
             return res.status(400).json({ error: "Body cannot be empty" });
         }
-        const prescription = await createPrescription(req.body);
+        const prescription = await uploadPrescription(req.body);
         return res.status(201).json(prescription);
     } catch (error) {
         return res.status(500).json({ error: error.message });
@@ -44,7 +44,7 @@ const getUserPrescriptionData = async (req, res) => {
 } 
 module.exports = {
     getPrescriptionData,
-    createPrescriptionData,
+    uploadPrescriptionData,
     deletePrescriptionData,
     getUserPrescriptionData
 
