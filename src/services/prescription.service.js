@@ -32,7 +32,12 @@ const createPrescription = async (req) => {
 const deletePrescription = async (prescription_id) => {
     try {
         const prescription = await PrescriptionModel.findByIdAndDelete(prescription_id);
-        return prescription;
+         if(prescription){
+            
+            return {
+                message: 'Prescription deleted successfully'
+            }
+         }
     } catch (error) {
         console.error('Error deleting Prescription:', error);
         throw new Error('Error deleting Prescription');
