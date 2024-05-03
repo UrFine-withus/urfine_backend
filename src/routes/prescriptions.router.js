@@ -5,8 +5,8 @@ const { getPrescriptionData,createPrescriptionData,deletePrescriptionData,getUse
 // Define your routes
 routes.route('/')
      .get(getPrescriptionData)
-     .post(createPrescriptionData)
-     .delete(deletePrescriptionData);
+     .patch(createPrescriptionData)
+     // .delete(deletePrescriptionData);
 routes.route('/:userId')
      .get(getUserPrescriptionData)
      // .post(createPrescriptionData)

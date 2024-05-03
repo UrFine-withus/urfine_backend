@@ -18,16 +18,29 @@ const createPrescription = async (req) => {
         const currentDate = new Date();
         const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
         const upload_month=currentMonth;
-
+      
         // console.log(upload_month);
-        const prescription = new PrescriptionModel({upload_month,...req});
-        await prescription.save();
-        if(prescription){
-            
+        const userdata=await PrescriptionModel.findOne({_userID:req._userID,upload_month:currentMonth});
+        if(userdata)
+            {
+                for (let url of req.prescription_image_url) {
+                    userdata.prescription_image_url.push(url);
+                  }
+                 await userdata.save();
+                 return {
+                    message: 'Prescription created successfully'
+                }
+            }
+          else{
+             const prescription = new PrescriptionModel({upload_month,...req});
+            await prescription.save();
+            if(prescription){
             return {
                 message: 'Prescription created successfully'
             }
          }
+          }  
+       
     } catch (error) {
         console.error('Error creating Prescription:', error);
         throw new Error('Error creating Prescription');
