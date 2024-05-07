@@ -158,13 +158,20 @@ const getAllCheckupResult = async (_userID) => {
 const getUpcomingAcceptedCheckupRequest = async (req, res) => {
     try {
         const currentDate = new Date();
-        const checkup = await CheckupRequestModel.find({
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // January is 0!
+        const year = currentDate.getFullYear();
+        
+        const formattedCurrentDate = `${day}-${month}-${year}`;
+        console.log(formattedCurrentDate);
+        const UpcomingData = await CheckupRequestModel.find({
             isAccepted: true,
-            sheduledTo: { $gte: currentDate }
+            sheduledTo: { $gt: formattedCurrentDate }
         }).sort({ sheduledTo: 1 }).limit(1);
-        return checkup;
+         const UpcomingDate = UpcomingData[0].sheduledTo;
+        return {UpcomingDate};
     } catch (error) {
-        console.error('Error fetching checkup:', error);
+        console.error('Error fetching UpcomingDate:', error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 }

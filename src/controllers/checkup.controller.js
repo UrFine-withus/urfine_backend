@@ -1,5 +1,5 @@
 
-const {getAllCheckupRequest,createCheckupRequest,deleteCheckupRequest,getAcceptedCheckupRequest,acceptCheckupRequest,CheckupRequestCount,createCheckupResult,updateCheckupResult,getAllCheckupResult,getLatestAcceptedCheckupRequest}=require('../services/checkup.service');
+const {getAllCheckupRequest,createCheckupRequest,deleteCheckupRequest,getAcceptedCheckupRequest,acceptCheckupRequest,CheckupRequestCount,createCheckupResult,updateCheckupResult,getAllCheckupResult,getUpcomingAcceptedCheckupRequest}=require('../services/checkup.service');
 
 const getAllCheckupRequestData = async (req, res) => {
     try {
@@ -108,11 +108,11 @@ const getAllCheckupResultData = async (req, res) => {
 const getUpcomingAcceptedCheckupRequestData = async (req, res) => 
   {
     try {
-      const checkup = await getLatestAcceptedCheckupRequest();
-      // console.log(checkup);
-      res.send(checkup);
+      const UpcomingDate = await getUpcomingAcceptedCheckupRequest();
+      // console.log(UpcomingDate);
+      res.send(UpcomingDate);
     } catch (error) {
-      console.error('Error fetching checkup:', error);
+      console.error('Error fetching UpcomingDate:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
   }
