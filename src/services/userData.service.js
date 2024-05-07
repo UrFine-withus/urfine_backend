@@ -24,7 +24,7 @@ const createUser = async (req) => {
 
 const checkUser = async (req) => {
   try {
-    console.log('Check user function is working')
+    //console.log('Check user function is working')
     // console.log(req);
     let User= await UserDataModel.findOne(req);
     
