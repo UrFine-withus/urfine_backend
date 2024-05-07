@@ -105,7 +105,7 @@ const getAllCheckupResultData = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
 }
-const getLatestAcceptedCheckupRequestData = async (req, res) => 
+const getUpcomingAcceptedCheckupRequestData = async (req, res) => 
   {
     try {
       const checkup = await getLatestAcceptedCheckupRequest();
