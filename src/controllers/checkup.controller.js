@@ -1,5 +1,5 @@
 
-const {getAllCheckupRequest,createCheckupRequest,deleteCheckupRequest,getAcceptedCheckupRequest,acceptCheckupRequest,CheckupRequestCount,createCheckupResult,updateCheckupResult,getAllCheckupResult}=require('../services/checkup.service');
+const {getAllCheckupRequest,createCheckupRequest,deleteCheckupRequest,getAcceptedCheckupRequest,acceptCheckupRequest,CheckupRequestCount,createCheckupResult,updateCheckupResult,getAllCheckupResult,getLatestAcceptedCheckupRequest}=require('../services/checkup.service');
 
 const getAllCheckupRequestData = async (req, res) => {
     try {
@@ -105,6 +105,17 @@ const getAllCheckupResultData = async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
 }
+const getLatestAcceptedCheckupRequestData = async (req, res) => 
+  {
+    try {
+      const checkup = await getLatestAcceptedCheckupRequest();
+      // console.log(checkup);
+      res.send(checkup);
+    } catch (error) {
+      console.error('Error fetching checkup:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
 
 
   module.exports = {
@@ -116,6 +127,7 @@ const getAllCheckupResultData = async (req, res) => {
     CheckupRequestCountData,
     createCheckupResultData,
     updateCheckupResultData,
-    getAllCheckupResultData
+    getAllCheckupResultData,
+    getLatestAcceptedCheckupRequestData
   }
   

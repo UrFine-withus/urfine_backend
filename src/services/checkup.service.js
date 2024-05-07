@@ -155,6 +155,10 @@ const getAllCheckupResult = async (_userID) => {
     }
 }
 
+const getLatestAcceptedCheckupRequest = async (req, res) => {
+    
+}
+
 module.exports = {
     getAllCheckupRequest,
     createCheckupRequest,
