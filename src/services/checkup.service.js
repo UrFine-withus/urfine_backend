@@ -155,8 +155,14 @@ const getAllCheckupResult = async (_userID) => {
     }
 }
 
-const getLatestAcceptedCheckupRequest = async (req, res) => {
-    
+const getUpcomingAcceptedCheckupRequest = async (req, res) => {
+try {
+    const checkup = await CheckupRequestModel.find({isAccepted: true}).sort({createdAt: -1}).limit(1);
+    return checkup; 
+} catch (error) {
+    console.error('Error fetching checkup:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+}
 }
 
 module.exports = {
@@ -168,5 +174,6 @@ module.exports = {
     CheckupRequestCount,
     createCheckupResult,
     updateCheckupResult,
-    getAllCheckupResult
+    getAllCheckupResult,
+    getLatestAcceptedCheckupRequest
 }

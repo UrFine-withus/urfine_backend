@@ -128,6 +128,6 @@ const getLatestAcceptedCheckupRequestData = async (req, res) =>
     createCheckupResultData,
     updateCheckupResultData,
     getAllCheckupResultData,
-    getLatestAcceptedCheckupRequestData
+    getUpcomingAcceptedCheckupRequestData
   }
   
