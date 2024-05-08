@@ -107,8 +107,8 @@ const acceptCheckupRequest = async (req) => {
             const Userdata= await UserDataModel.findOne({_userID});
             if(Userdata){
                 const registration = [Userdata.fcm_id];
-                await sendNotifiaction(registration, 'Checkup Request Accepted', 'Your checkup request has been accepted');
-                console.log('notification sented successfully');
+                await sendNotification(registration, 'Checkup Request Accepted', 'Your checkup request has been accepted');
+                console.log('notification sended successfully');
             }
             return {
                 message: "Checkup accepted successfully"
@@ -185,8 +185,8 @@ const getUpcomingAcceptedCheckupRequest = async (req, res) => {
 }
 
 async function sendNotification(registrationIds, messageTitle, messageDesc, messageType) {
-    const fcmApi = "AAAAM8HlO2c:APA91bENdhJlDr3mLKyOe6q7gkR3HmVQYwOzMeMxTXqDmSX8aNsKQWRwuDi9mLStcUyvWIH2VaHB6F7Se_pN-Yr52ZKlGam6mzh6Uh7XqpuVsU9t2cgGJoOrMNrKHdGgPxv2mKJUkpAY";
-    const url = "https://fcm.googleapis.com/fcm/send";
+    const fcmApi = process.env.FIREBASE_SERVER_KEY;
+    const url = process.env.FIREBASE_NOTIFICATION_URL;
 
     const headers = {
         "Content-Type": "application/json",
