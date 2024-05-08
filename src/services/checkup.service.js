@@ -1,5 +1,5 @@
-
-const {CheckupRequestModel,CheckupResultModel} = require('../models');
+const axios = require('axios');
+const {CheckupRequestModel,CheckupResultModel,UserDataModel} = require('../models');
 
 const getAllCheckupRequest = async (req, res) => {
     try {
@@ -102,6 +102,14 @@ const acceptCheckupRequest = async (req) => {
             sheduledTo:req_date
         }});
         if(checkup){
+            const _userID = checkup._userID;
+            console.log(_userID);
+            const Userdata= await UserDataModel.findOne({_userID});
+            if(Userdata){
+                const registration = [Userdata.fcm_id];
+                await sendNotification(registration, 'Checkup Request Accepted', 'Your checkup request has been accepted');
+                console.log('notification sended successfully');
+            }
             return {
                 message: "Checkup accepted successfully"
             };
@@ -155,6 +163,57 @@ const getAllCheckupResult = async (_userID) => {
     }
 }
 
+const getUpcomingAcceptedCheckupRequest = async (req, res) => {
+    try {
+        const currentDate = new Date();
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // January is 0!
+        const year = currentDate.getFullYear();
+        
+        const formattedCurrentDate = `${day}-${month}-${year}`;
+        console.log(formattedCurrentDate);
+        const UpcomingData = await CheckupRequestModel.find({
+            isAccepted: true,
+            sheduledTo: { $gt: formattedCurrentDate }
+        }).sort({ sheduledTo: 1 }).limit(1);
+         const UpcomingDate = UpcomingData[0].sheduledTo;
+        return {UpcomingDate};
+    } catch (error) {
+        console.error('Error fetching UpcomingDate:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+async function sendNotification(registrationIds, messageTitle, messageDesc, messageType) {
+    const fcmApi = process.env.FIREBASE_SERVER_KEY;
+    const url = process.env.FIREBASE_NOTIFICATION_URL;
+
+    const headers = {
+        "Content-Type": "application/json",
+        "Authorization": 'key=' + fcmApi
+    };
+
+    const payload = {
+        "registration_ids": registrationIds,
+        "priority": "high",
+        "notification": {
+            "body": messageDesc,
+            "title": messageTitle,
+        },
+        "data": {
+            "type": messageType,
+            "event_id": "mappla"
+        }
+    };
+
+    try {
+        const result = await axios.post(url, payload, { headers: headers });
+        console.log(result.data);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 module.exports = {
     getAllCheckupRequest,
     createCheckupRequest,
@@ -164,5 +223,6 @@ module.exports = {
     CheckupRequestCount,
     createCheckupResult,
     updateCheckupResult,
-    getAllCheckupResult
+    getAllCheckupResult,
+    getUpcomingAcceptedCheckupRequest
 }

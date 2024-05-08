@@ -12,6 +12,12 @@ const userDetailSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+
+    fcm_id:{
+        type:String,
+        required:true,
+        unique:true
+    },
     createdAt: {
         type: Date,
         default: Date.now

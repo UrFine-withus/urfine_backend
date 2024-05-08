@@ -7,7 +7,7 @@ routes.route('/')
      .get(getUserData)
      .post(createUserData)
      .delete(deleteUserData);
-routes.route('/check').post(checkUserData);
+routes.route('/check').patch(checkUserData);
 routes.route('/count').get(userCountData);
 // Add more routes as needed
 
