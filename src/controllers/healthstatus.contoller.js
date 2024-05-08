@@ -1,9 +1,18 @@
 
-const getHealthData =async()=>{
-
+const getHealthData = async () => {
+    template=`<div>
+    <div>Welcome to Urfine</div>
+    <div>The server is Live.</>
+    </div>`
+    return template
 }
 
-module.export={
-    getHealthData
+const getHealthcheckData=async ()=>{
+
 }
+module.exports = {
+    getHealthData,
+    getHealthcheckData
+}
+
 
