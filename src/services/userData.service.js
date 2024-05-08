@@ -22,31 +22,45 @@ const createUser = async (req) => {
   }
 };
 
-const checkUser = async (req) => {
+
+const checkUser = async (_userID,fcm_id) => {
   try {
-    //console.log('Check user function is working')
-    // console.log(req);
-    let User= await UserDataModel.findOne(req);
-    
-    if (User) {
-      const user = await UserInfoModel.findOne(req);
-      if (user) {
-        const { name } = user;
-        // console.log(name);
-        return name;
-      } else {
-      throw new Error("User details not found");
+        let UserData = await UserDataModel.findOne({ _userID });
+
+        if (UserData) {
+          const _id=UserData._id.toString();
+          // console.log("hi",_id);
+          if (UserData?.fcm_id !== fcm_id) {
+            UserData.fcm_id = fcm_id;
+            console.log("fcm_id updated",UserData);
+          
+            await UserDataModel.findByIdAndUpdate({_id}, {$set: { fcm_id: fcm_id }});
+            console.log("fcm_id updated");
+          } else {
+            await UserDataModel.findByIdAndUpdate({_id}, {$set: { fcm_id: fcm_id }});
+            console.log("fcm_id added",UserData);
+          }
+        } else {
+          throw new Error("User not found");
+        }
+        const user = await UserInfoModel.findOne({_userID});
+        if (user) {
+          const { name } = user;
+          // console.log(name);
+          return {
+            name:name,
+            message:"User details found"
+          };
+        } 
+        else {
+          throw new Error("User details not found");
+        }
+      }
+      catch (error) {
+        console.error('Error fetching users:', error);
+        throw error;
       }
     }
-    else{
-      throw new Error("User not found");
-    }
-  }
-  catch (error) {
-    console.error('Error fetching users:', error);
-    throw error;
-  }
-}
 
 const getUserCount = async () => {
   try {

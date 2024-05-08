@@ -29,10 +29,11 @@ const createUserData = async (req, res) => {
 const checkUserData = async (req, res) => {
   try {
     const _userID = req.query.userId;
+    const fcm_id = req.body.fcm_id;
     // console.log(_userID);
-    const user = await checkUser({_userID});
+    const user = await checkUser(_userID,fcm_id);
     // console.log(user);
-    res.send({user});
+    res.send(user);
   } catch (error) {
     console.error('Error fetching user:', error);
     res.status(500).json({ error: 'Internal Server Error' });
