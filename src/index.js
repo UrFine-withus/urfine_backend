@@ -14,14 +14,6 @@ app.use(express.json());
 
 // Connect to MongoDB
 connectToDb()
-// .then((connection) => {
-//   try {
-//     // Initialize GridFS connection
-   
-//     // initializeGridFsConnection(connection);
-//   } catch (error) {
-//     console.error('Error initializing GridFS connection', error);
-//   }});
 
 // Define your routes here
 const Routes = require('./routes');
