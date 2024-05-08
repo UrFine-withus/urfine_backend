@@ -16,7 +16,6 @@ const userDetailSchema = new mongoose.Schema({
     fcm_id:{
         type:String,
         required:true,
-        unique:true
     },
     createdAt: {
         type: Date,
