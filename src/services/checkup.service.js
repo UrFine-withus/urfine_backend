@@ -1,5 +1,5 @@
-
-const {CheckupRequestModel,CheckupResultModel} = require('../models');
+const axios = require('axios');
+const {CheckupRequestModel,CheckupResultModel,UserDataModel} = require('../models');
 
 const getAllCheckupRequest = async (req, res) => {
     try {
@@ -102,6 +102,14 @@ const acceptCheckupRequest = async (req) => {
             sheduledTo:req_date
         }});
         if(checkup){
+            const _userID = checkup._userID;
+            console.log(_userID);
+            const Userdata= await UserDataModel.findOne({_userID});
+            if(Userdata){
+                const registration = [Userdata.fcm_id];
+                await sendNotifiaction(registration, 'Checkup Request Accepted', 'Your checkup request has been accepted');
+                console.log('notification sented successfully');
+            }
             return {
                 message: "Checkup accepted successfully"
             };
@@ -173,6 +181,36 @@ const getUpcomingAcceptedCheckupRequest = async (req, res) => {
     } catch (error) {
         console.error('Error fetching UpcomingDate:', error);
         res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+async function sendNotification(registrationIds, messageTitle, messageDesc, messageType) {
+    const fcmApi = "AAAAM8HlO2c:APA91bENdhJlDr3mLKyOe6q7gkR3HmVQYwOzMeMxTXqDmSX8aNsKQWRwuDi9mLStcUyvWIH2VaHB6F7Se_pN-Yr52ZKlGam6mzh6Uh7XqpuVsU9t2cgGJoOrMNrKHdGgPxv2mKJUkpAY";
+    const url = "https://fcm.googleapis.com/fcm/send";
+
+    const headers = {
+        "Content-Type": "application/json",
+        "Authorization": 'key=' + fcmApi
+    };
+
+    const payload = {
+        "registration_ids": registrationIds,
+        "priority": "high",
+        "notification": {
+            "body": messageDesc,
+            "title": messageTitle,
+        },
+        "data": {
+            "type": messageType,
+            "event_id": "mappla"
+        }
+    };
+
+    try {
+        const result = await axios.post(url, payload, { headers: headers });
+        console.log(result.data);
+    } catch (error) {
+        console.error(error);
     }
 }
 
