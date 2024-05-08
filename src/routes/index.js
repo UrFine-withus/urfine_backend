@@ -6,7 +6,7 @@ const HistoryLogRouter=require('./historylogs.router');
 const CheckupRouter = require('./checkup.router');
 const HealthLogRouter = require('./healthlogs.router');
 const PrescriptionRouter = require('./prescriptions.router');
-const HealthStatusRouter =require('./')
+const HealthStatusRouter =require('./healthstatus.router')
 const express = require('express');
 const routes = express.Router();
     routes.use('/',HealthStatusRouter)
